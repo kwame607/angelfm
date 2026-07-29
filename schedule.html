@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Program Schedule | Angel 96.1FM</title>
+<meta name="description" content="View Angel 96.1FM's full weekly program schedule. Filter by time of day, search programs, and see what's live right now." />
+<link rel="icon" href="images/logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/pages.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="ticker" role="marquee" aria-label="Breaking news">
+    <span class="ticker-tag">BREAKING</span>
+    <div class="ticker-track">
+      <span>Government announces new road infrastructure fund for the Greater Accra Region</span>
+      <span>Black Stars secure friendly win ahead of AFCON qualifiers</span>
+      <span>Heavy rains expected this weekend — Meteo Agency issues advisory</span>
+      <span>Government announces new road infrastructure fund for the Greater Accra Region</span>
+      <span>Black Stars secure friendly win ahead of AFCON qualifiers</span>
+    </div>
+  </div>
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="Angel 96.1FM Home">
+      <img src="images/logo.jpg" alt="Angel 96.1FM logo" width="46" height="46" />
+      <span class="brand-text">ANGEL<strong>96.1 FM</strong></span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="schedule.html">Program Schedule</a>
+      <a href="presenters.html">Presenters</a>
+      <a href="listen.html">Listen Live &amp; Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn search-toggle" aria-label="Toggle search" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="search-panel">
+    <div class="container">
+      <form role="search">
+        <label class="visually-hidden" for="site-search">Search</label>
+        <input id="site-search" type="search" placeholder="Search news, presenters, programs…" autocomplete="off" />
+        <button type="submit" class="btn btn-gold btn-sm">Search</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<div class="scrim"></div>
+<nav class="mobile-nav" aria-label="Mobile">
+  <button class="icon-btn close-drawer" aria-label="Close menu">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="index.html">Home</a>
+  <a href="news.html">News</a>
+  <a href="schedule.html">Program Schedule</a>
+  <a href="presenters.html">Presenters</a>
+  <a href="listen.html">Listen Live &amp; Contact</a>
+</nav>
+
+<main id="main">
+  <section style="padding-bottom:0;">
+    <div class="container">
+      <span class="eyebrow">This week on air</span>
+      <h1 style="font-size:clamp(28px,4vw,42px);margin:10px 0 8px;">Program Schedule</h1>
+      <p class="text-muted">Tap any show below to see full details, or use the filters to find something for your time of day.</p>
+
+      <div class="schedule-toolbar reveal">
+        <div class="filter-chip-row">
+          <button class="cat-btn active" data-schedule-filter="all">All Day</button>
+          <button class="cat-btn" data-schedule-filter="morning">Morning</button>
+          <button class="cat-btn" data-schedule-filter="afternoon">Afternoon</button>
+          <button class="cat-btn" data-schedule-filter="evening">Evening</button>
+          <button class="cat-btn" data-schedule-filter="weekend">Weekend</button>
+        </div>
+        <div class="search-inline" style="max-width:280px;margin:0;">
+          <input type="search" placeholder="Search programs…" data-schedule-search aria-label="Search programs" />
+        </div>
+      </div>
+
+      <div class="schedule-scroll reveal">
+        <table class="schedule-table" data-schedule-table aria-label="Weekly program schedule"></table>
+      </div>
+
+      <div class="upcoming-strip reveal" style="align-items:center;">
+        <div class="upcoming-card">
+          <span class="eyebrow" style="color:var(--red);">Up next</span>
+          <p style="font-weight:700;margin-top:8px;">Next program starts in</p>
+          <div class="countdown" data-next-countdown>00:00:00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PROGRAM MODAL ============ -->
+<div class="modal-overlay" data-program-modal role="dialog" aria-modal="true" aria-label="Program details">
+  <div class="modal-box">
+    <button class="icon-btn modal-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="eyebrow" data-modal-day>Day, Time</span>
+    <h3 data-modal-name>Program Name</h3>
+    <div class="modal-meta">
+      <span data-modal-host></span>
+      <span data-modal-cat></span>
+      <span data-modal-duration></span>
+    </div>
+    <p class="desc" data-modal-desc></p>
+    <a href="listen.html" class="btn btn-gold btn-block">Listen Live</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><img src="images/logo.jpg" alt="Angel 96.1FM" width="42" height="42" /></a>
+        <p>Angel 96.1FM — the finest in news, music and entertainment, broadcasting to homes and hearts across Ghana.</p>
+        <div class="footer-social">
+          <a href="#" class="icon-btn" aria-label="Facebook">f</a>
+          <a href="#" class="icon-btn" aria-label="Twitter">X</a>
+          <a href="#" class="icon-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="icon-btn" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="news.html">Latest News</a>
+        <a href="schedule.html">Programs</a>
+        <a href="presenters.html">Presenters</a>
+        <a href="listen.html">Advertise With Us</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col programs">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <form class="newsletter-mini" novalidate>
+          <input type="email" placeholder="Email address" required aria-label="Email address" />
+          <button type="submit" class="btn btn-gold btn-sm">Join</button>
+        </form>
+        <div class="form-msg" role="status"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Angel 96.1FM. All rights reserved.</span>
+      <span>Broadcasting live from Accra, Ghana.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<div class="sticky-listen">
+  <a href="listen.html" class="btn btn-gold btn-block">Listen Live — Angel 96.1FM</a>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+<script src="js/schedule.js"></script>
+</body>
+</html>

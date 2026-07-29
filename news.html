@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>News | Angel 96.1FM</title>
+<meta name="description" content="Read the latest news headlines from Angel 96.1FM — politics, sports, business, entertainment and more." />
+<meta property="og:title" content="News | Angel 96.1FM" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="images/logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/pages.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="ticker" role="marquee" aria-label="Breaking news">
+    <span class="ticker-tag">BREAKING</span>
+    <div class="ticker-track">
+      <span>Government announces new road infrastructure fund for the Greater Accra Region</span>
+      <span>Black Stars secure friendly win ahead of AFCON qualifiers</span>
+      <span>Heavy rains expected this weekend — Meteo Agency issues advisory</span>
+      <span>Government announces new road infrastructure fund for the Greater Accra Region</span>
+      <span>Black Stars secure friendly win ahead of AFCON qualifiers</span>
+      <span>Heavy rains expected this weekend — Meteo Agency issues advisory</span>
+    </div>
+  </div>
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="Angel 96.1FM Home">
+      <img src="images/logo.jpg" alt="Angel 96.1FM logo" width="46" height="46" />
+      <span class="brand-text">ANGEL<strong>96.1 FM</strong></span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="schedule.html">Program Schedule</a>
+      <a href="presenters.html">Presenters</a>
+      <a href="listen.html">Listen Live &amp; Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn search-toggle" aria-label="Toggle search" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="search-panel">
+    <div class="container">
+      <form role="search">
+        <label class="visually-hidden" for="site-search">Search</label>
+        <input id="site-search" type="search" placeholder="Search news, presenters, programs…" autocomplete="off" />
+        <button type="submit" class="btn btn-gold btn-sm">Search</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<div class="scrim"></div>
+<nav class="mobile-nav" aria-label="Mobile">
+  <button class="icon-btn close-drawer" aria-label="Close menu">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="index.html">Home</a>
+  <a href="news.html">News</a>
+  <a href="schedule.html">Program Schedule</a>
+  <a href="presenters.html">Presenters</a>
+  <a href="listen.html">Listen Live &amp; Contact</a>
+</nav>
+
+<main id="main">
+  <section style="padding-top:44px;padding-bottom:0;">
+    <div class="container">
+      <span class="eyebrow">Angel News</span>
+      <h1 style="font-size:clamp(28px,4vw,42px);margin:10px 0 28px;">Headlines &amp; Stories</h1>
+
+      <article class="featured-story reveal">
+        <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1400&auto=format&fit=crop" alt="Newsroom broadcast" loading="lazy" />
+        <div class="featured-story-content">
+          <span class="live-badge" style="background:var(--red)">FEATURED</span>
+          <h2>Parliament Passes Landmark Digital Economy Bill</h2>
+          <p style="color:#e8e6df;max-width:560px;">The bill sets out a framework for taxing digital services and protecting citizens' data, marking one of the most significant tech policy shifts in a decade.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="news-cats reveal">
+        <button class="cat-btn active" data-cat-btn="all">All</button>
+        <button class="cat-btn" data-cat-btn="politics">Politics</button>
+        <button class="cat-btn" data-cat-btn="sports">Sports</button>
+        <button class="cat-btn" data-cat-btn="local">Local</button>
+        <button class="cat-btn" data-cat-btn="business">Business</button>
+        <button class="cat-btn" data-cat-btn="entertainment">Entertainment</button>
+        <button class="cat-btn" data-cat-btn="technology">Technology</button>
+        <button class="cat-btn" data-cat-btn="education">Education</button>
+        <button class="cat-btn" data-cat-btn="health">Health</button>
+      </div>
+
+      <div class="search-inline reveal" style="margin:0 0 32px;">
+        <input type="search" placeholder="Search articles…" data-news-search aria-label="Search news articles" />
+      </div>
+
+      <div class="news-layout">
+        <div data-article-feed>
+
+          <article class="article-row reveal" data-category="politics">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=600&auto=format&fit=crop" alt="Government building" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Politics</span>
+              <h3>Government Unveils New Roads Budget for 2026</h3>
+              <p class="card-desc">The Ministry of Roads has outlined a major investment plan targeting rural connectivity across all sixteen regions of the country.</p>
+              <div class="card-meta"><span>By Nana Kwame</span><span>Jul 27, 2026</span><span>4 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="sports">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600&auto=format&fit=crop" alt="Football match" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Sports</span>
+              <h3>Black Stars Qualify for Finals After Dramatic Win</h3>
+              <p class="card-desc">A last-minute goal secures Ghana's spot in the finals, sparking wild celebrations across the country.</p>
+              <div class="card-meta"><span>By Yaw Boateng</span><span>Jul 27, 2026</span><span>3 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="business">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=600&auto=format&fit=crop" alt="Business meeting" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Business</span>
+              <h3>Cedi Strengthens Against Major Currencies</h3>
+              <p class="card-desc">Analysts credit tighter monetary policy and rising export revenue for the currency's third straight week of gains.</p>
+              <div class="card-meta"><span>By Efua Asante</span><span>Jul 26, 2026</span><span>5 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="local">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=600&auto=format&fit=crop" alt="City street market" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Local</span>
+              <h3>New Market Complex Opens in Kumasi</h3>
+              <p class="card-desc">The three-storey facility will house over 800 traders and includes a dedicated cold-storage wing for perishables.</p>
+              <div class="card-meta"><span>By Kwabena Otu</span><span>Jul 25, 2026</span><span>3 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="health">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=600&auto=format&fit=crop" alt="Hospital corridor" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Health</span>
+              <h3>Free Health Screening Week Announced</h3>
+              <p class="card-desc">Twelve regional hospitals will offer free screenings for hypertension, diabetes and eye conditions next week.</p>
+              <div class="card-meta"><span>By Ama Serwaa</span><span>Jul 24, 2026</span><span>2 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="education">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" alt="Students in a classroom" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Education</span>
+              <h3>Scholarship Fund Doubles Its Reach This Year</h3>
+              <p class="card-desc">The Angel FM Education Fund will now support over 500 students across the country in the coming academic year.</p>
+              <div class="card-meta"><span>By Nana Adjoa</span><span>Jul 23, 2026</span><span>3 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="entertainment">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop" alt="Concert crowd" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Entertainment</span>
+              <h3>Homegrown Artist Tops Regional Charts</h3>
+              <p class="card-desc">The singer's latest single has spent three weeks at number one, becoming the most streamed local track this year.</p>
+              <div class="card-meta"><span>By Kojo Mensah</span><span>Jul 22, 2026</span><span>2 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <article class="article-row reveal" data-category="technology">
+            <a href="#" class="card-media"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" alt="Technology workspace" loading="lazy" /></a>
+            <div>
+              <span class="card-cat" style="position:static;display:inline-block;margin-bottom:8px;">Technology</span>
+              <h3>Local Startup Raises Funding for Fintech App</h3>
+              <p class="card-desc">The mobile-money reconciliation app aims to simplify bookkeeping for small businesses across West Africa.</p>
+              <div class="card-meta"><span>By Kwabena Otu</span><span>Jul 21, 2026</span><span>4 min read</span></div>
+              <a href="#" class="card-readmore">Read more →</a>
+            </div>
+          </article>
+
+          <div class="share-row reveal">
+            <span class="text-muted" style="font-size:13px;align-self:center;margin-right:6px;">Share:</span>
+            <a href="#" class="icon-btn" aria-label="Share on Facebook">f</a>
+            <a href="#" class="icon-btn" aria-label="Share on WhatsApp">W</a>
+            <a href="#" class="icon-btn" aria-label="Share on Twitter">X</a>
+            <a href="#" class="icon-btn" aria-label="Share on Telegram">T</a>
+            <a href="#" class="icon-btn" aria-label="Share on LinkedIn">in</a>
+          </div>
+
+          <div class="pagination reveal">
+            <button data-page-btn aria-label="Previous page">‹</button>
+            <button data-page-btn class="active">1</button>
+            <button data-page-btn>2</button>
+            <button data-page-btn>3</button>
+            <button data-page-btn aria-label="Next page">›</button>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-box reveal">
+            <h4>Trending Stories</h4>
+            <div class="trend-item"><span class="trend-rank">01</span><h5>Black Stars Qualify for Finals After Dramatic Win</h5></div>
+            <div class="trend-item"><span class="trend-rank">02</span><h5>Cedi Strengthens Against Major Currencies</h5></div>
+            <div class="trend-item"><span class="trend-rank">03</span><h5>New Market Complex Opens in Kumasi</h5></div>
+            <div class="trend-item"><span class="trend-rank">04</span><h5>Homegrown Artist Tops Regional Charts</h5></div>
+          </div>
+          <div class="sidebar-box reveal">
+            <h4>Related Programs</h4>
+            <p class="text-muted" style="font-size:14px;">Catch our <a href="schedule.html" style="color:var(--red);font-weight:600;">Angel News Hour</a> weekdays at 12PM for deeper analysis on today's top stories.</p>
+          </div>
+          <div class="ad-banner reveal" style="height:250px;display:flex;align-items:center;justify-content:center;">Advertisement</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><img src="images/logo.jpg" alt="Angel 96.1FM" width="42" height="42" /></a>
+        <p>Angel 96.1FM — the finest in news, music and entertainment, broadcasting to homes and hearts across Ghana.</p>
+        <div class="footer-social">
+          <a href="#" class="icon-btn" aria-label="Facebook">f</a>
+          <a href="#" class="icon-btn" aria-label="Twitter">X</a>
+          <a href="#" class="icon-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="icon-btn" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="news.html">Latest News</a>
+        <a href="schedule.html">Programs</a>
+        <a href="presenters.html">Presenters</a>
+        <a href="listen.html">Advertise With Us</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col programs">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <form class="newsletter-mini" novalidate>
+          <input type="email" placeholder="Email address" required aria-label="Email address" />
+          <button type="submit" class="btn btn-gold btn-sm">Join</button>
+        </form>
+        <div class="form-msg" role="status"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Angel 96.1FM. All rights reserved.</span>
+      <span>Broadcasting live from Accra, Ghana.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<div class="sticky-listen">
+  <a href="listen.html" class="btn btn-gold btn-block">Listen Live — Angel 96.1FM</a>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+<script src="js/news.js"></script>
+</body>
+</html>
