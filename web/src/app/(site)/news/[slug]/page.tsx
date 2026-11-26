@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { withPlaceholder } from "@/lib/static-params";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllArticleSlugs, getArticleBySlug, getRelatedArticles, getTrendingArticles } from "@/lib/content";
 import { getPublicEnv } from "@/lib/env";
 import { formatDate } from "@/lib/format";
 import { ArticleCard } from "@/components/news/ArticleCard";
+import { ArticleBody } from "@/components/news/ArticleBody";
 import { ShareLinks } from "@/components/news/ShareLinks";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -12,7 +14,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return (await getAllArticleSlugs()).map((slug) => ({ slug }));
+  return withPlaceholder(await getAllArticleSlugs(), "slug");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -56,11 +58,7 @@ export default async function ArticlePage({ params }: Props) {
           <div className="mt-6">
             <MediaFrame src={article.imageUrl} alt={article.imageAlt} ratio="aspect-[16/9]" priority sizes="(min-width: 1024px) 66vw, 100vw" />
           </div>
-          <div className="mx-auto mt-8 max-w-2xl space-y-5 font-display text-lg leading-8">
-            {article.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
+          <ArticleBody html={article.bodyHtml} className="mx-auto mt-8 max-w-2xl" />
           <div className="mx-auto mt-10 max-w-2xl border-t border-rule pt-6">
             <ShareLinks url={url} title={article.title} />
           </div>

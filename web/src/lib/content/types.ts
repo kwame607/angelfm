@@ -13,8 +13,8 @@ export interface Article {
   slug: string;
   title: string;
   excerpt: string;
-  /** Plain paragraphs for now. Phase 4 introduces sanitised rich-text HTML. */
-  body: string[];
+  /** Editor HTML. Always passed through sanitizeArticleHtml() before rendering. */
+  bodyHtml: string;
   category: Category;
   author: string | null;
   /** ISO 8601 */

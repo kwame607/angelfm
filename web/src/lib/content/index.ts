@@ -1,92 +1,31 @@
-import {
-  advertisements,
-  articles,
-  categories,
-  presenters,
-  programmes,
-  siteInfo,
-} from "./placeholder";
-import type { AdPlacement, Advertisement, Article, Category, Presenter, Programme, SiteInfo } from "./types";
+import { isSupabaseConfigured } from "@/lib/env";
+import * as live from "./db";
+import * as sample from "./sample";
 
-export { IS_PLACEHOLDER_CONTENT } from "./placeholder";
 export * from "./types";
 
 /**
- * Content API used by every public page. Today it reads placeholder data;
- * Phase 3 replaces the bodies with Supabase queries (published/active rows
- * only, enforced by RLS) without touching callers.
+ * Public content API used by every public page.
+ *  - Supabase configured  -> real content from the database (cached, RLS-limited).
+ *  - Not configured       -> clearly-labelled sample content, for design review only.
  */
+export const isPlaceholderContent = () => !isSupabaseConfigured();
 
-const byNewest = (a: Article, b: Article) => b.publishedAt.localeCompare(a.publishedAt);
+const impl = () => (isSupabaseConfigured() ? live : sample);
 
-export async function getCategories(): Promise<Category[]> {
-  return categories;
-}
-
-export async function getLatestArticles(limit = 20, categorySlug?: string): Promise<Article[]> {
-  return articles
-    .filter((a) => !categorySlug || a.category.slug === categorySlug)
-    .sort(byNewest)
-    .slice(0, limit);
-}
-
-export async function getFeaturedArticle(): Promise<Article | null> {
-  const sorted = [...articles].sort(byNewest);
-  return sorted.find((a) => a.isFeatured) ?? sorted[0] ?? null;
-}
-
-export async function getTrendingArticles(limit = 5): Promise<Article[]> {
-  return articles.filter((a) => a.isTrending).sort(byNewest).slice(0, limit);
-}
-
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  return articles.find((a) => a.slug === slug) ?? null;
-}
-
-export async function getRelatedArticles(article: Article, limit = 3): Promise<Article[]> {
-  return articles
-    .filter((a) => a.slug !== article.slug && a.category.slug === article.category.slug)
-    .sort(byNewest)
-    .slice(0, limit);
-}
-
-export async function getAllArticleSlugs(): Promise<string[]> {
-  return articles.map((a) => a.slug);
-}
-
-export async function getCategoryBySlug(slug: string): Promise<Category | null> {
-  return categories.find((c) => c.slug === slug) ?? null;
-}
-
-export async function getProgrammes(): Promise<Programme[]> {
-  return programmes.filter((p) => p.isActive);
-}
-
-export async function getProgrammeBySlug(slug: string): Promise<Programme | null> {
-  return programmes.find((p) => p.slug === slug && p.isActive) ?? null;
-}
-
-export async function getPresenters(): Promise<Presenter[]> {
-  return presenters;
-}
-
-export async function getPresenterBySlug(slug: string): Promise<Presenter | null> {
-  return presenters.find((p) => p.slug === slug) ?? null;
-}
-
-export async function getProgrammesForPresenter(presenterSlug: string): Promise<Programme[]> {
-  return programmes.filter((p) => p.isActive && p.presenterSlugs.includes(presenterSlug));
-}
-
-export async function getPresentersForProgramme(programme: Programme): Promise<Presenter[]> {
-  return presenters.filter((p) => programme.presenterSlugs.includes(p.slug));
-}
-
-/** Only advertisements that are enabled and within their campaign dates (enforced in DB in Phase 4). */
-export async function getAdsForPlacement(placement: AdPlacement): Promise<Advertisement[]> {
-  return advertisements.filter((a) => a.placement === placement);
-}
-
-export async function getSiteInfo(): Promise<SiteInfo> {
-  return siteInfo;
-}
+export const getCategories = () => impl().getCategories();
+export const getCategoryBySlug = (...a: Parameters<typeof sample.getCategoryBySlug>) => impl().getCategoryBySlug(...a);
+export const getLatestArticles = (...a: Parameters<typeof sample.getLatestArticles>) => impl().getLatestArticles(...a);
+export const getFeaturedArticle = () => impl().getFeaturedArticle();
+export const getTrendingArticles = (...a: Parameters<typeof sample.getTrendingArticles>) => impl().getTrendingArticles(...a);
+export const getArticleBySlug = (...a: Parameters<typeof sample.getArticleBySlug>) => impl().getArticleBySlug(...a);
+export const getRelatedArticles = (...a: Parameters<typeof sample.getRelatedArticles>) => impl().getRelatedArticles(...a);
+export const getAllArticleSlugs = () => impl().getAllArticleSlugs();
+export const getProgrammes = () => impl().getProgrammes();
+export const getProgrammeBySlug = (...a: Parameters<typeof sample.getProgrammeBySlug>) => impl().getProgrammeBySlug(...a);
+export const getPresenters = () => impl().getPresenters();
+export const getPresenterBySlug = (...a: Parameters<typeof sample.getPresenterBySlug>) => impl().getPresenterBySlug(...a);
+export const getProgrammesForPresenter = (...a: Parameters<typeof sample.getProgrammesForPresenter>) => impl().getProgrammesForPresenter(...a);
+export const getPresentersForProgramme = (...a: Parameters<typeof sample.getPresentersForProgramme>) => impl().getPresentersForProgramme(...a);
+export const getAdsForPlacement = (...a: Parameters<typeof sample.getAdsForPlacement>) => impl().getAdsForPlacement(...a);
+export const getSiteInfo = () => impl().getSiteInfo();
