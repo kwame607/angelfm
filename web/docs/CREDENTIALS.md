@@ -12,8 +12,11 @@ Variables. See `web/.env.example` for the exact variable names.
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public (RLS-protected) | Supabase → Project Settings → API Keys |
 | `SUPABASE_SECRET_KEY` | **Server only — bypasses RLS** | Supabase → Project Settings → API Keys |
 
-Also needed: a Supabase project (recommend a region close to Ghana, e.g. EU West
-or South Africa where available), plus the email address the single
+Setup steps are in `ADMIN_SETUP.md`.
+
+Also needed: a Supabase **Pro** project in its own organisation (free projects pause
+after inactivity and have no backups), in the region closest to Ghana that is
+offered (e.g. EU West or South Africa), plus the email address the single
 administrator will use. The administrator password is set during the secure
 setup procedure in Phase 3 — it is never stored in code or in `.env` files.
 
