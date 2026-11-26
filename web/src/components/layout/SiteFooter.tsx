@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { primaryNav } from "@/lib/navigation";
+import { getSiteInfo } from "@/lib/content";
+import { safeHttpUrl } from "@/lib/url";
 
 async function currentYear() {
   "use cache";
@@ -14,6 +16,9 @@ async function currentYear() {
  */
 export async function SiteFooter() {
   const year = await currentYear();
+  const info = await getSiteInfo();
+  const hasContact = Boolean(info.address || info.phone || info.email);
+  const social = info.social.map((s) => ({ ...s, url: safeHttpUrl(s.url) })).filter((s) => s.url);
   return (
     <footer className="bg-ink text-on-ink-muted">
       <div aria-hidden className="h-1 bg-angel-gold" />
@@ -41,7 +46,24 @@ export async function SiteFooter() {
         </nav>
         <div>
           <p className="font-label text-sm font-bold uppercase tracking-[0.14em] text-on-ink">Contact</p>
-          <p className="mt-3 text-sm">Station contact details to be supplied by Angel FM.</p>
+          {hasContact ? (
+            <address className="mt-3 space-y-1 text-sm not-italic">
+              {info.address && <p>{info.address}</p>}
+              {info.phone && <p><a href={`tel:${info.phone.replace(/\s/g, "")}`} className="hover:text-angel-gold">{info.phone}</a></p>}
+              {info.email && <p><a href={`mailto:${info.email}`} className="hover:text-angel-gold">{info.email}</a></p>}
+            </address>
+          ) : (
+            <p className="mt-3 text-sm">Contact details coming soon.</p>
+          )}
+          {social.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-3 text-sm">
+              {social.map((s) => (
+                <li key={s.platform}>
+                  <a href={s.url!} target="_blank" rel="noopener noreferrer" className="capitalize hover:text-angel-gold">{s.platform === "x" ? "X" : s.platform}</a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="border-t border-white/10">
