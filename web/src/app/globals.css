@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/*
+ * Angel FM design tokens.
+ * Colours are taken from the station logo (black field, sunburst yellow,
+ * red arc, white brush lettering) and from the original site's tokens
+ * (--gold #F4B400, --red #D62828, --ink #0B0B0C).
+ * Editorial approach: square-ish corners, hairline rules, strong type.
+ */
+@theme {
+  --color-ink: #0b0b0c;
+  --color-ink-soft: #17171a;
+  --color-angel-red: #d62828;
+  --color-angel-red-dark: #a81e1e;
+  --color-angel-gold: #f4b400;
+  --color-angel-gold-soft: #ffd866;
+  --color-paper: #faf7f2;
+  --color-surface: #ffffff;
+  --color-rule: #e2dccf;
+  --color-body: #1a1a1a;
+  --color-muted: #66645d;
+  --color-on-ink: #f3f1ea;
+  --color-on-ink-muted: #b9b6ac;
+  --color-live: #1f9d57;
+
+  --font-display: var(--font-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), "Segoe UI", system-ui, sans-serif;
+  --font-label: var(--font-condensed), "Arial Narrow", sans-serif;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-angel-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section kicker: small condensed uppercase label with a red rule */
+.kicker {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-angel-red);
+}
