@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SampleNotice } from "@/components/ui/SampleNotice";
 import { getPublicEnv } from "@/lib/env";
 
 // Self-hosted (OFL-licensed) fonts: no third-party font requests, faster on mobile networks.
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <SampleNotice />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}
