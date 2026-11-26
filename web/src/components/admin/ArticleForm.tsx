@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Field, FormMessage, TextInput, inputClass } from "./Field";
 import { ConfirmButton } from "./ConfirmButton";
 import { RichTextEditor } from "./RichTextEditor";
+import { MediaPicker, type PickerMedia } from "./MediaPicker";
 import { slugify } from "@/lib/slug";
 import type { ActionState } from "@/lib/admin-form";
 import { deleteArticle, saveArticle } from "@/app/admin/(dashboard)/news/actions";
@@ -15,17 +16,19 @@ export interface ArticleFormValues {
   title: string; slug: string; excerpt: string; bodyHtml: string; categoryId: string;
   authorName: string; imageAlt: string; seoTitle: string; seoDescription: string;
   /** "YYYY-MM-DDTHH:mm" (Ghana time = UTC) or "" */
+  featuredImageId: string;
   publishedAt: string; isFeatured: boolean; isTrending: boolean; status: "draft" | "published";
 }
 
 const init: ActionState = {};
 
-export function ArticleForm({ values, categories, flash }: { values: ArticleFormValues; categories: { id: string; name: string }[]; flash?: string }) {
+export function ArticleForm({ values, categories, media, flash }: { values: ArticleFormValues; categories: { id: string; name: string }[]; media: PickerMedia[]; flash?: string }) {
   const [state, action, pending] = useActionState(saveArticle, init);
   const [title, setTitle] = useState(values.title);
   const [slug, setSlug] = useState(values.slug);
   const [slugTouched, setSlugTouched] = useState(Boolean(values.slug));
   const [body, setBody] = useState(values.bodyHtml);
+  const [imageAlt, setImageAlt] = useState(values.imageAlt);
   const published = values.status === "published";
 
   return (
@@ -43,6 +46,13 @@ export function ArticleForm({ values, categories, flash }: { values: ArticleForm
             <Field label="Article" htmlFor="body">
               <div id="body" className="mt-1"><RichTextEditor initialHtml={values.bodyHtml} onChange={setBody} /></div>
             </Field>
+            <div className="border border-rule bg-surface p-4">
+              <p className="text-sm font-semibold">Featured image</p>
+              <MediaPicker name="featured_image_id" items={media} initialId={values.featuredImageId} onAltSuggestion={(a) => setImageAlt((cur) => cur || a)} />
+              <Field label="Image description (alt text)" htmlFor="image_alt" hint="Describe the picture for people who cannot see it.">
+                <TextInput id="image_alt" name="image_alt" value={imageAlt} maxLength={300} onChange={(e) => setImageAlt(e.target.value)} />
+              </Field>
+            </div>
             <Field label="Summary" htmlFor="excerpt" hint="Shown on cards and in search results. Leave blank to use the start of the article.">
               <textarea id="excerpt" name="excerpt" rows={3} maxLength={500} defaultValue={values.excerpt} className={inputClass} />
             </Field>
@@ -76,7 +86,6 @@ export function ArticleForm({ values, categories, flash }: { values: ArticleForm
                 </Field>
               </div>
             </details>
-            <p className="text-xs text-muted">Featured images are added from the Media Library in the next update.</p>
           </aside>
         </div>
 

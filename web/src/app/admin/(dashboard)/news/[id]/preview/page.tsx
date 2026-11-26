@@ -13,9 +13,10 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
   const { id } = await params;
   if (!z.uuid().safeParse(id).success) notFound();
   const supabase = await createClient();
-  const { data: a } = await supabase.from("news_articles").select("title,excerpt,body_html,author_name,published_at,status,categories(name)").eq("id", id).maybeSingle();
+  const { data: a } = await supabase.from("news_articles").select("title,excerpt,body_html,author_name,published_at,status,image_alt,categories(name),featured_image:media!featured_image_id(public_url)").eq("id", id).maybeSingle();
   if (!a) notFound();
   const cat = a.categories as unknown as { name: string } | null;
+  const image = (a.featured_image as unknown as { public_url: string } | null)?.public_url;
 
   return (
     <div className="mx-auto max-w-3xl bg-paper p-6 sm:p-10">
@@ -29,6 +30,10 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
         {a.author_name && <>By <strong className="text-body">{a.author_name}</strong> · </>}
         {a.published_at ? formatDate(a.published_at) : "No date set"}
       </p>
+      {image && (
+        // eslint-disable-next-line @next/next/no-img-element -- admin-only preview
+        <img src={image} alt={a.image_alt} className="mt-6 aspect-[16/9] w-full object-cover" />
+      )}
       <ArticleBody html={a.body_html} className="mt-8" />
     </div>
   );
