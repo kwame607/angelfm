@@ -20,7 +20,7 @@ offered (e.g. EU West or South Africa), plus the email address the single
 administrator will use. The administrator password is set during the secure
 setup procedure in Phase 3 — it is never stored in code or in `.env` files.
 
-## 2. Cloudflare R2 (needed from Phase 4)
+## 2. Cloudflare R2 (needed to upload images) — step by step in `R2_SETUP.md`
 
 | Variable | Exposure | Notes |
 |---|---|---|

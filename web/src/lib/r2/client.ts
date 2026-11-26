@@ -42,7 +42,8 @@ export function getR2Client(): S3Client {
   const cfg = getR2Config();
   cached = new S3Client({
     region: "auto",
-    endpoint: `https://${cfg.accountId}.r2.cloudflarestorage.com`,
+    endpoint: getServerEnv().R2_ENDPOINT ?? `https://${cfg.accountId}.r2.cloudflarestorage.com`,
+    forcePathStyle: Boolean(getServerEnv().R2_ENDPOINT),
     credentials: {
       accessKeyId: cfg.accessKeyId,
       secretAccessKey: cfg.secretAccessKey,

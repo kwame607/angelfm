@@ -19,6 +19,8 @@ const serverSchema = z.object({
   R2_SECRET_ACCESS_KEY: z.string().min(1).optional(),
   R2_BUCKET: z.string().min(1).optional(),
   R2_PUBLIC_BASE_URL: z.url().optional(),
+  /** Optional override of the S3 endpoint (local testing only). Leave unset in production. */
+  R2_ENDPOINT: z.url().optional(),
 });
 
 /** Treat empty strings (as in a blank .env line) as unset. */

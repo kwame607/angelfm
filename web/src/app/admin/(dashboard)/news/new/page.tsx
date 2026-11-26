@@ -8,7 +8,10 @@ export const metadata = { title: "New article" };
 export default async function NewArticlePage() {
   await requireAdmin();
   const supabase = await createClient();
-  const { data: categories } = await supabase.from("categories").select("id,name").order("name");
+  const [{ data: categories }, { data: media }] = await Promise.all([
+    supabase.from("categories").select("id,name").order("name"),
+    supabase.from("media").select("id,public_url,filename,alt_text").order("created_at", { ascending: false }).limit(60),
+  ]);
   return (
     <>
       <PageHeader title="New article" />
@@ -19,7 +22,8 @@ export default async function NewArticlePage() {
       )}
       <ArticleForm
         categories={categories ?? []}
-        values={{ title: "", slug: "", excerpt: "", bodyHtml: "", categoryId: "", authorName: "", imageAlt: "", seoTitle: "", seoDescription: "", publishedAt: "", isFeatured: false, isTrending: false, status: "draft" }}
+        media={media ?? []}
+        values={{ title: "", slug: "", excerpt: "", bodyHtml: "", categoryId: "", featuredImageId: "", authorName: "", imageAlt: "", seoTitle: "", seoDescription: "", publishedAt: "", isFeatured: false, isTrending: false, status: "draft" }}
       />
     </>
   );
