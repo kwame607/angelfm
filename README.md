@@ -7,6 +7,7 @@ Radio station website, admin dashboard and streaming integration.
 | Path | Contents |
 |---|---|
 | `web/` | The new Next.js (App Router) + TypeScript + Tailwind application |
+| `supabase/` | Database migrations (schema + Row Level Security) and security tests |
 | `legacy/` | The original static HTML/CSS/JS site, preserved untouched for reference (also recoverable from git history on `main`) |
 
 ## Run locally
@@ -31,8 +32,11 @@ error only when used. Required credentials: see `web/docs/CREDENTIALS.md`.
 - `lib/supabase/` — `client.ts` (browser), `server.ts` (session-bound, RLS), `admin.ts` (secret key, server-only)
 - `lib/r2/` — Cloudflare R2 client and unique object-key helpers (server-only)
 - `lib/radio/config.ts` — the single source of truth for stream configuration
+- `app/admin/` — administrator login and dashboard (`/admin`), protected server-side
+- `lib/auth/` — `requireAdmin()` session verification; `lib/audit.ts` — audit log helper
+- `proxy.ts` — optimistic /admin redirect and session refresh (not the security boundary)
 - `fonts/` — self-hosted Inter, Source Serif 4, Barlow Condensed (SIL OFL)
 
 ## Branching
 
-Work happens on `redevelopment`. Nothing is pushed to `main` until reviewed.
+Each phase is developed on its own branch and merged to `main` through a pull request after review.

@@ -1,7 +1,9 @@
 import { ButtonLink } from "@/components/ui/Button";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 
 export default function NotFound() {
   return (
+    <SiteChrome>
     <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
       <p className="kicker">Error 404</p>
       <h1 className="mt-2 text-4xl font-extrabold">Page not found</h1>
@@ -11,5 +13,6 @@ export default function NotFound() {
         <ButtonLink href="/news" variant="outline">Read the news</ButtonLink>
       </div>
     </div>
+    </SiteChrome>
   );
 }
