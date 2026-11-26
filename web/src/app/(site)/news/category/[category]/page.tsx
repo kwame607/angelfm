@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPlaceholder } from "@/lib/static-params";
 import { notFound } from "next/navigation";
 import { getCategories, getCategoryBySlug, getLatestArticles } from "@/lib/content";
 import { ArticleCard } from "@/components/news/ArticleCard";
@@ -8,7 +9,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 type Props = { params: Promise<{ category: string }> };
 
 export async function generateStaticParams() {
-  return (await getCategories()).map((c) => ({ category: c.slug }));
+  return withPlaceholder((await getCategories()).map((c) => c.slug), "category");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

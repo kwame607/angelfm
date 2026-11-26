@@ -35,6 +35,8 @@ error only when used. Required credentials: see `web/docs/CREDENTIALS.md`.
 - `app/admin/` — administrator login and dashboard (`/admin`), protected server-side
 - `lib/auth/` — `requireAdmin()` session verification; `lib/audit.ts` — audit log helper
 - `proxy.ts` — optimistic /admin redirect and session refresh (not the security boundary)
+- `lib/content/` — public content API: reads Supabase when configured, labelled sample data otherwise
+- `lib/sanitize.ts` — allow-list HTML sanitiser (applied on save and on render); `npm test` runs its unit tests
 - `fonts/` — self-hosted Inter, Source Serif 4, Barlow Condensed (SIL OFL)
 
 ## Branching

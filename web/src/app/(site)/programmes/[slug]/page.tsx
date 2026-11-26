@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPlaceholder } from "@/lib/static-params";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProgrammeBySlug, getProgrammes, getPresentersForProgramme } from "@/lib/content";
@@ -9,7 +10,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return (await getProgrammes()).map((p) => ({ slug: p.slug }));
+  return withPlaceholder((await getProgrammes()).map((p) => p.slug), "slug");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

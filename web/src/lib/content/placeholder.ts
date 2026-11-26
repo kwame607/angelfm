@@ -11,9 +11,8 @@ import type {
  * DEVELOPMENT PLACEHOLDERS ONLY.
  * Everything here is deliberately generic and labelled "Sample". None of it is
  * real Angel FM news, staff or programming. It exists so the layouts can be
- * reviewed; Phase 3 replaces this module with Supabase queries.
+ * reviewed; Used only while Supabase is not configured; once it is, the site reads real content.
  */
-export const IS_PLACEHOLDER_CONTENT = true;
 
 const cat = (slug: string, name: string): Category => ({ slug, name });
 
@@ -40,7 +39,7 @@ const art = (
   title: `Sample headline ${n}: placeholder story for layout review`,
   excerpt:
     "Sample summary text. Replace with a real excerpt written by the newsroom once content management is connected.",
-  body: lorem,
+  bodyHtml: lorem.map((t) => `<p>${t}</p>`).join(""),
   category: categories.find((c) => c.slug === categorySlug)!,
   author: "Sample Author",
   publishedAt: `2026-11-${String(25 - n).padStart(2, "0")}T08:00:00Z`,
