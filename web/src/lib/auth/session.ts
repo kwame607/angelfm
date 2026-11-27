@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/env";
@@ -21,6 +22,8 @@ export interface AdminUser {
  */
 export const getAdmin = cache(async (): Promise<AdminUser | null> => {
   if (!isSupabaseConfigured()) return null;
+  // Opt into request-time rendering BEFORE any clock/session work (Next.js blocking-prerender-current-time).
+  await connection();
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data.user) return null;
