@@ -5,10 +5,10 @@ import { z } from "zod";
 import { requireAdmin } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 import { logAudit } from "@/lib/audit";
-import { isR2Configured } from "@/lib/env";
+import { isStorageConfigured } from "@/lib/storage";
 import { rateLimit } from "@/lib/rate-limit";
 import { buildObjectKey, type MediaFolder } from "@/lib/r2/keys";
-import { deleteObject, putObject } from "@/lib/r2/operations";
+import { deleteObject, putObject } from "@/lib/storage";
 import { ImageRejectedError, MAX_UPLOAD_BYTES, processImage } from "@/lib/media/process-image";
 import { friendlyDbError, str } from "@/lib/admin-form";
 
@@ -30,8 +30,8 @@ const folderSchema = z.enum(FOLDERS);
 export async function uploadMedia(formData: FormData): Promise<UploadResult> {
   const admin = await requireAdmin();
 
-  if (!isR2Configured()) {
-    return { ok: false, error: "File storage is not set up yet. Cloudflare R2 credentials are missing (see docs/CREDENTIALS.md)." };
+  if (!isStorageConfigured()) {
+    return { ok: false, error: "File storage is not set up yet. Follow docs/STORAGE_SETUP.md." };
   }
   const limit = rateLimit(`upload:${admin.id}`, 60, 10 * 60_000);
   if (!limit.allowed) return { ok: false, error: "Too many uploads in a short time. Please wait a few minutes." };
@@ -119,11 +119,11 @@ export async function deleteMedia(formData: FormData): Promise<DeleteResult> {
   const used = await usageOf(supabase, id.data);
   if (used.length) return { ok: false, error: `Still used by ${used.join(", ")}. Remove it from there first.` };
 
-  if (isR2Configured()) {
+  if (isStorageConfigured()) {
     try {
       await deleteObject(row.object_key);
     } catch (e) {
-      console.error("[media] R2 delete failed:", e);
+      console.error("[media] storage delete failed:", e);
       return { ok: false, error: "The file could not be removed from storage. Nothing was deleted; please try again." };
     }
   }

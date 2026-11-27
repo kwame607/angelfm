@@ -1,7 +1,7 @@
 # Deployment (Vercel) and launch checklist
 
 Prerequisites done first: `ADMIN_SETUP.md` (Supabase + admin account) and
-`R2_SETUP.md` (image storage).
+`STORAGE_SETUP.md` (image bucket; `R2_SETUP.md` is an optional alternative).
 
 ## 1. Vercel project
 
@@ -14,10 +14,10 @@ Prerequisites done first: `ADMIN_SETUP.md` (Supabase + admin account) and
 | `NEXT_PUBLIC_SITE_URL` | `https://your-domain` (no trailing slash) |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | from Supabase |
 | `SUPABASE_SECRET_KEY` | from Supabase (server only; mark Sensitive) |
-| `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_BASE_URL` | from Cloudflare |
+| `STORAGE_BUCKET` | only if not using the default `media` bucket |
+| `R2_…` (five variables) | **optional**, only if using Cloudflare R2 instead of Supabase Storage |
 
-   `R2_PUBLIC_BASE_URL` is read **at build time** to allow images: change it →
-   redeploy. Do **not** set `R2_ENDPOINT` in production.
+   Image hosts are allowed at **build time** from `NEXT_PUBLIC_SUPABASE_URL` (and `R2_PUBLIC_BASE_URL` if used): change either → redeploy. Do **not** set `R2_ENDPOINT` in production.
 4. Deploy. Then add the domain (Settings → Domains) and update DNS.
 5. Supabase → Authentication → URL Configuration: set **Site URL** to the domain.
 

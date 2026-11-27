@@ -56,7 +56,7 @@ SUPABASE_SECRET_KEY=sb_secret_...
 - `.env.local` is already git-ignored; keep it that way.
 - If it ever leaks: *Project Settings → API Keys* → rotate it, then update `.env.local` (and Vercel).
 
-Leave the `R2_…` lines blank for now (see `R2_SETUP.md` later).
+Leave the `R2_…` lines blank. Image storage uses Supabase itself: see `STORAGE_SETUP.md` after this guide.
 
 ## Step 3 — Create the database tables (run the migrations)
 

@@ -45,7 +45,8 @@ error only when used. Required credentials: see `web/docs/CREDENTIALS.md`.
 | Doc | For |
 |---|---|
 | `web/docs/ADMIN_SETUP.md` | Supabase project, migrations, creating the administrator |
-| `web/docs/R2_SETUP.md` | Cloudflare R2 image storage |
+| `web/docs/STORAGE_SETUP.md` | Image storage in Supabase (default, no card needed) |
+| `web/docs/R2_SETUP.md` | Optional: Cloudflare R2 instead |
 | `web/docs/DEPLOYMENT.md` | Vercel, domain, launch checklist, known limitations |
 | `web/docs/ADMIN_GUIDE.md` | Day-to-day guide for station staff |
 | `web/docs/SECURITY.md` | Security model and review notes |
