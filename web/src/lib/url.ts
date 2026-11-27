@@ -8,3 +8,9 @@ export function safeHttpUrl(value: string | null | undefined): string | null {
     return null;
   }
 }
+
+/** Returns the URL only if it is https (needed for audio streams: browsers block http audio on https sites). */
+export function safeHttpsUrl(value: string | null | undefined): string | null {
+  const u = safeHttpUrl(value);
+  return u && u.startsWith("https://") ? u : null;
+}

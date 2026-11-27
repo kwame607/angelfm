@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { logAudit } from "@/lib/audit";
 import { slugify, SLUG_PATTERN } from "@/lib/slug";
 import { htmlToText, sanitizeArticleHtml } from "@/lib/sanitize";
-import { friendlyDbError, str, type ActionState } from "@/lib/admin-form";
+import { friendlyDbError, parseGhanaDateTime, str, type ActionState } from "@/lib/admin-form";
 
 const optionalText = (max: number, msg: string) =>
   z.string().trim().max(max, msg).transform((v) => (v === "" ? null : v));
@@ -26,13 +26,6 @@ const schema = z.object({
   publishedAt: z.string().trim(),
   intent: z.enum(["draft", "publish"]),
 });
-
-/** The station is in Ghana (GMT, UTC+0), so a datetime-local value is read as UTC. */
-function parseLocalDate(v: string): Date | null {
-  if (!v) return null;
-  const d = new Date(`${v}${v.length === 16 ? ":00" : ""}Z`);
-  return Number.isNaN(d.getTime()) ? null : d;
-}
 
 export async function saveArticle(_: ActionState, formData: FormData): Promise<ActionState> {
   const admin = await requireAdmin();
@@ -71,11 +64,11 @@ export async function saveArticle(_: ActionState, formData: FormData): Promise<A
 
   let publishedAt: string | null = null;
   if (publishing) {
-    const given = parseLocalDate(v.publishedAt);
+    const given = parseGhanaDateTime(v.publishedAt);
     if (v.publishedAt && !given) return { error: "The publication date is not valid." };
     publishedAt = (given ?? new Date()).toISOString();
   } else {
-    publishedAt = parseLocalDate(v.publishedAt)?.toISOString() ?? null; // kept so a draft can remember its planned date
+    publishedAt = parseGhanaDateTime(v.publishedAt)?.toISOString() ?? null; // kept so a draft can remember its planned date
   }
 
   const excerpt = v.excerpt || (bodyText.length > 160 ? `${bodyText.slice(0, 157).trimEnd()}…` : bodyText);

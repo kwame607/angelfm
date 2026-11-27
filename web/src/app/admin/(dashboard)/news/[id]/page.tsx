@@ -4,6 +4,7 @@ import { ArticleForm } from "@/components/admin/ArticleForm";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { requireAdmin } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
+import { toDateTimeInput } from "@/lib/admin-form";
 
 export const metadata = { title: "Edit article" };
 
@@ -34,7 +35,7 @@ export default async function EditArticlePage({ params, searchParams }: Props) {
         values={{
           id: a.id, title: a.title, slug: a.slug, excerpt: a.excerpt, bodyHtml: a.body_html, categoryId: a.category_id ?? "", featuredImageId: a.featured_image_id ?? "",
           authorName: a.author_name ?? "", imageAlt: a.image_alt, seoTitle: a.seo_title ?? "", seoDescription: a.seo_description ?? "",
-          publishedAt: a.published_at ? new Date(a.published_at).toISOString().slice(0, 16) : "",
+          publishedAt: toDateTimeInput(a.published_at),
           isFeatured: a.is_featured, isTrending: a.is_trending, status: a.status,
         }}
       />
