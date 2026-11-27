@@ -13,7 +13,7 @@ export default async function PresentersPage() {
   const presenters = await getPresenters();
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-      <SectionHeading kicker="The voices" title="Presenters" as="h1" />
+      <SectionHeading title="Presenters" as="h1" />
       {presenters.length ? (
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
           {presenters.map((p) => (

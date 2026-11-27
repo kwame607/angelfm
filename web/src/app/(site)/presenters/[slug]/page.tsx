@@ -34,7 +34,7 @@ export default async function PresenterPage({ params }: Props) {
           <p className="mt-4 text-muted">{presenter.bio}</p>
           {programmes.length > 0 && (
             <div className="mt-6 border-t border-rule pt-4">
-              <h2 className="kicker mb-2">Programmes hosted</h2>
+              <h2 className="mb-3 text-2xl font-extrabold">Programmes hosted</h2>
               <ul className="space-y-2">
                 {programmes.map((p) => (
                   <li key={p.slug}>

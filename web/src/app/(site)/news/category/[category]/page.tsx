@@ -32,7 +32,7 @@ export default async function CategoryPage({ params }: Props) {
   if (!category) notFound();
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-      <SectionHeading kicker="Angel News" title={category.name} as="h1" />
+      <SectionHeading title={category.name} as="h1" />
       <CategoryNav categories={categories} activeSlug={category.slug} />
       {articles.length ? (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

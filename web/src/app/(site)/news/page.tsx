@@ -16,13 +16,13 @@ export default async function NewsPage() {
   const [lead, ...rest] = articles;
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-      <SectionHeading kicker="Angel News" title="News" as="h1" />
+      <SectionHeading title="News" subtitle="The latest from the Angel 96.1 FM newsroom." as="h1" />
       <CategoryNav categories={categories} />
       {lead ? (
         <div className="space-y-8">
           <ArticleCard article={lead} variant="lead" priority />
           <AdSlot placement="news_list_banner" />
-          <div className="grid gap-8 border-t border-rule pt-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 pt-2 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((a) => (
               <ArticleCard key={a.slug} article={a} />
             ))}

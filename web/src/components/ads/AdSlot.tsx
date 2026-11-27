@@ -12,8 +12,8 @@ export async function AdSlot({ placement, className = "", ratio = "aspect-[970/2
   if (!ad || !href) return null;
   return (
     <aside aria-label="Advertisement" className={className}>
-      <p className="mb-1 font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">Advertisement</p>
-      <a href={href} target="_blank" rel="sponsored noopener noreferrer" className={`relative block w-full overflow-hidden bg-rule ${ratio}`}>
+      <p className="mb-1.5 text-xs font-medium text-muted">Advertisement</p>
+      <a href={href} target="_blank" rel="sponsored noopener noreferrer" className={`relative block w-full overflow-hidden rounded-2xl bg-chip ${ratio}`}>
         <Image src={ad.imageUrl} alt={ad.alt || ad.advertiser} fill sizes="(min-width: 1024px) 970px, 100vw" className="object-cover" />
       </a>
     </aside>

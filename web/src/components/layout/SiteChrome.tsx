@@ -19,12 +19,14 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
         hasMetadata: Boolean(radio.metadataUrl),
       }}
     >
-      <SampleNotice />
-      <SiteHeader />
-      <main id="main" className="flex-1">
-        {children}
-      </main>
-      <SiteFooter />
+      <div className="site-theme flex min-h-screen flex-1 flex-col bg-paper text-body">
+        <SampleNotice />
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
+      </div>
     </RadioProvider>
   );
 }

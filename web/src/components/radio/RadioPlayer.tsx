@@ -236,9 +236,9 @@ function MiniPlayer({ engaged, onClose }: { engaged: boolean; onClose: () => voi
   const failed = state.status === "offline";
   return (
     <>
-      <div aria-hidden className="h-20" />
-      <section aria-label="Radio player" className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink text-on-ink shadow-[0_-4px_20px_rgba(0,0,0,0.35)]">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
+      <div aria-hidden className="h-24" />
+      <section aria-label="Radio player" className="fixed inset-x-3 bottom-3 z-40 mx-auto max-w-3xl rounded-full border border-white/10 bg-ink/90 text-on-ink shadow-[0_18px_50px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-center gap-3 py-2 pl-2 pr-3">
           <button
             type="button"
             onClick={failed ? retry : toggle}

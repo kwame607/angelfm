@@ -7,8 +7,8 @@ export function CategoryNav({ categories, activeSlug }: { categories: Category[]
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`block whitespace-nowrap border-b-2 px-3 py-2 font-label text-base font-semibold uppercase tracking-[0.1em] ${
-          active ? "border-angel-red text-angel-red" : "border-transparent text-muted hover:text-ink"
+        className={`block whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+          active ? "bg-body text-paper" : "bg-chip text-body hover:bg-rule"
         }`}
       >
         {label}
@@ -16,8 +16,8 @@ export function CategoryNav({ categories, activeSlug }: { categories: Category[]
     </li>
   );
   return (
-    <nav aria-label="News categories" className="mb-8 overflow-x-auto border-b border-rule">
-      <ul className="flex min-w-max">
+    <nav aria-label="News categories" className="-mx-4 mb-8 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+      <ul className="flex min-w-max gap-2">
         {item("/news", "All", !activeSlug)}
         {categories.map((c) => item(`/news/category/${c.slug}`, c.name, c.slug === activeSlug))}
       </ul>
