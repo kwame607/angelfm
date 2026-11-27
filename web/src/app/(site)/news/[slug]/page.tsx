@@ -3,7 +3,7 @@ import { withPlaceholder } from "@/lib/static-params";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllArticleSlugs, getArticleBySlug, getRelatedArticles, getTrendingArticles } from "@/lib/content";
-import { getPublicEnv } from "@/lib/env";
+import { absoluteUrl, jsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { ArticleCard } from "@/components/news/ArticleCard";
 import { ArticleBody } from "@/components/news/ArticleBody";
@@ -21,14 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticleBySlug((await params).slug);
   if (!article) return {};
   return {
-    title: article.title,
-    description: article.excerpt,
+    title: article.seoTitle || article.title,
+    description: article.seoDescription || article.excerpt,
     alternates: { canonical: `/news/${article.slug}` },
     openGraph: {
       type: "article",
-      title: article.title,
-      description: article.excerpt,
+      title: article.seoTitle || article.title,
+      description: article.seoDescription || article.excerpt,
       publishedTime: article.publishedAt,
+      ...(article.updatedAt ? { modifiedTime: article.updatedAt } : {}),
       ...(article.imageUrl ? { images: [article.imageUrl] } : {}),
     },
   };
@@ -38,10 +39,24 @@ export default async function ArticlePage({ params }: Props) {
   const article = await getArticleBySlug((await params).slug);
   if (!article) notFound();
   const [related, trending] = await Promise.all([getRelatedArticles(article), getTrendingArticles(4)]);
-  const url = `${getPublicEnv().NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")}/news/${article.slug}`;
+  const url = absoluteUrl(`/news/${article.slug}`);
+  const structured = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title.slice(0, 110),
+    description: article.seoDescription || article.excerpt,
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt ?? article.publishedAt,
+    mainEntityOfPage: url,
+    articleSection: article.category.name,
+    ...(article.imageUrl ? { image: [article.imageUrl] } : {}),
+    ...(article.author ? { author: { "@type": "Person", name: article.author } } : {}),
+    publisher: { "@type": "Organization", name: "Angel 96.1 FM", logo: { "@type": "ImageObject", url: absoluteUrl("/brand/angel-fm-logo.jpg") } },
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structured) }} />
       <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
         <article>
           <nav aria-label="Breadcrumb" className="mb-3 text-sm text-muted">

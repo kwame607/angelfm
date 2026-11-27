@@ -24,6 +24,11 @@ export interface Article {
   isFeatured: boolean;
   /** Editor-flagged. Real traffic-based "popular" needs a connected analytics source. */
   isTrending: boolean;
+  /** Optional editor overrides for search/social previews. */
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  /** ISO 8601 */
+  updatedAt?: string;
 }
 
 export type Weekday = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
