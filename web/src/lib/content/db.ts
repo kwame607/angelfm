@@ -27,11 +27,12 @@ function toSocial(v: unknown): Social {
 interface ArticleRow {
   slug: string; title: string; excerpt: string; body_html: string; author_name: string | null;
   published_at: string; image_alt: string; is_featured: boolean; is_trending: boolean;
+  seo_title: string | null; seo_description: string | null; updated_at: string;
   categories: { slug: string; name: string } | null;
   featured_image: { public_url: string } | null;
 }
 const ARTICLE_SELECT =
-  "slug,title,excerpt,body_html,author_name,published_at,image_alt,is_featured,is_trending,categories(slug,name),featured_image:media!featured_image_id(public_url)";
+  "slug,title,excerpt,body_html,author_name,published_at,image_alt,is_featured,is_trending,seo_title,seo_description,updated_at,categories(slug,name),featured_image:media!featured_image_id(public_url)";
 
 function toArticle(r: ArticleRow): Article {
   return {
@@ -46,6 +47,7 @@ function toArticle(r: ArticleRow): Article {
     imageAlt: r.image_alt,
     isFeatured: r.is_featured,
     isTrending: r.is_trending,
+    seoTitle: r.seo_title, seoDescription: r.seo_description, updatedAt: r.updated_at,
   };
 }
 

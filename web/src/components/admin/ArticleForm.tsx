@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useState } from "react";
+import { useKeepForm } from "./use-keep-form";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Field, FormMessage, TextInput, inputClass } from "./Field";
@@ -23,7 +24,7 @@ export interface ArticleFormValues {
 const init: ActionState = {};
 
 export function ArticleForm({ values, categories, media, flash }: { values: ArticleFormValues; categories: { id: string; name: string }[]; media: PickerMedia[]; flash?: string }) {
-  const [state, action, pending] = useActionState(saveArticle, init);
+  const [state, onSubmit, pending] = useKeepForm(saveArticle, init);
   const [title, setTitle] = useState(values.title);
   const [slug, setSlug] = useState(values.slug);
   const [slugTouched, setSlugTouched] = useState(Boolean(values.slug));
@@ -33,7 +34,7 @@ export function ArticleForm({ values, categories, media, flash }: { values: Arti
 
   return (
     <div className="space-y-6">
-      <form action={action} className="space-y-6">
+      <form onSubmit={onSubmit} className="space-y-6">
         {values.id && <input type="hidden" name="id" value={values.id} />}
         <input type="hidden" name="body_html" value={body} />
 

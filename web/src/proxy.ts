@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { slugExists, slugTarget } from "@/lib/slug-exists";
 
 /**
- * Optimistic gate + session refresh for /admin/*.
+ * 1. Real 404 status for unknown public slugs.
+ * 2. Optimistic gate + session refresh for /admin/*.
  *
  * This only improves UX (fast redirect, token refresh). It is NOT the
  * security boundary: every admin page, layout and server action re-verifies
@@ -15,6 +17,15 @@ export async function proxy(request: NextRequest) {
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   const { pathname } = request.nextUrl;
   const isLogin = pathname === "/admin/login";
+
+  // Public detail pages: answer unknown slugs with a genuine 404 status.
+  if (!pathname.startsWith("/admin")) {
+    const target = slugTarget(pathname);
+    if (target && !(await slugExists(target.table, target.slug))) {
+      return NextResponse.rewrite(new URL("/_missing", request.url), { status: 404 });
+    }
+    return NextResponse.next();
+  }
 
   // Not configured: let the pages render their own "setup required" state.
   if (!url || !key) return NextResponse.next();
@@ -50,5 +61,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/news/:path+", "/programmes/:slug", "/presenters/:slug"],
 };

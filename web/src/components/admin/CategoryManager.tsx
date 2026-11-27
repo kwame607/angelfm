@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useKeepForm } from "./use-keep-form";
 import { Button } from "@/components/ui/Button";
 import { Field, FormMessage, TextInput } from "./Field";
 import { ConfirmButton } from "./ConfirmButton";
@@ -11,9 +11,9 @@ export interface CategoryRowData { id: string; name: string; slug: string; artic
 const init: ActionState = {};
 
 function CreateForm() {
-  const [state, action, pending] = useActionState(createCategory, init);
+  const [state, onSubmit, pending] = useKeepForm(createCategory, init);
   return (
-    <form action={action} className="grid gap-4 border border-rule bg-surface p-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+    <form onSubmit={onSubmit} className="grid gap-4 border border-rule bg-surface p-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
       <Field label="New category name" htmlFor="new-name"><TextInput id="new-name" name="name" required maxLength={60} /></Field>
       <Field label="URL slug (optional)" htmlFor="new-slug" hint="Leave blank to generate from the name."><TextInput id="new-slug" name="slug" maxLength={80} /></Field>
       <Button type="submit" disabled={pending}>{pending ? "Adding…" : "Add category"}</Button>
@@ -23,18 +23,18 @@ function CreateForm() {
 }
 
 function Row({ c }: { c: CategoryRowData }) {
-  const [saveState, save, saving] = useActionState(updateCategory, init);
-  const [delState, del, deleting] = useActionState(deleteCategory, init);
+  const [saveState, save, saving] = useKeepForm(updateCategory, init);
+  const [delState, del, deleting] = useKeepForm(deleteCategory, init);
   return (
     <li className="space-y-2 px-4 py-3">
       <div className="flex flex-wrap items-end gap-3">
-        <form action={save} className="flex flex-1 flex-wrap items-end gap-3">
+        <form onSubmit={save} className="flex flex-1 flex-wrap items-end gap-3">
           <input type="hidden" name="id" value={c.id} />
           <Field label="Name" htmlFor={`n-${c.id}`}><TextInput id={`n-${c.id}`} name="name" defaultValue={c.name} required maxLength={60} /></Field>
           <Field label="Slug" htmlFor={`s-${c.id}`}><TextInput id={`s-${c.id}`} name="slug" defaultValue={c.slug} maxLength={80} /></Field>
           <Button type="submit" variant="outline" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
         </form>
-        <form action={del}>
+        <form onSubmit={del}>
           <input type="hidden" name="id" value={c.id} />
           <input type="hidden" name="name" value={c.name} />
           <ConfirmButton message={`Delete the category “${c.name}”?`} disabled={deleting} className="rounded-sm px-3 py-2 text-sm font-semibold text-angel-red-dark hover:bg-red-50">

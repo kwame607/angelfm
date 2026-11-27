@@ -13,6 +13,7 @@ import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
 import { PresenterCard } from "@/components/presenters/PresenterCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { absoluteUrl, jsonLd } from "@/lib/seo";
 
 export default async function HomePage() {
   const [radio, featured, latest, trending, programmes, presenters, info] = await Promise.all([
@@ -28,8 +29,23 @@ export default async function HomePage() {
   const gridStories = latest.filter((a) => a.slug !== featured?.slug).slice(4, 8);
   const presenterByslug = new Map(presenters.map((p) => [p.slug, p.name]));
 
+  // Only facts the station has confirmed: name, site, logo, frequency, and contact/social details if set.
+  const orgData = {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    name: radio.stationName,
+    slogan: radio.tagline,
+    url: absoluteUrl("/"),
+    logo: absoluteUrl("/brand/angel-fm-logo.jpg"),
+    ...(info.phone ? { telephone: info.phone } : {}),
+    ...(info.email ? { email: info.email } : {}),
+    ...(info.address ? { address: info.address } : {}),
+    ...(info.social.length ? { sameAs: info.social.map((x) => x.url) } : {}),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(orgData) }} />
       {/* Station identity + live radio */}
       <section className="bg-ink text-on-ink">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_1fr] md:py-14">

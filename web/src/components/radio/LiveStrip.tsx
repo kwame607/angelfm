@@ -1,11 +1,11 @@
 import { getPublicRadioConfig } from "@/lib/radio/config";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ButtonLink } from "@/components/ui/Button";
+import { HomePlayButton } from "./HomePlayButton";
 
 /**
- * Homepage live-radio panel. Reports CONFIGURATION status only. The real
- * connection-aware player and persistent mini-player arrive in Phase 5, so no
- * LIVE badge is shown here.
+ * Homepage radio panel. The badge here reports only whether a stream is set
+ * up; real live status is shown by the player once audio is actually playing.
  */
 export async function LiveStrip() {
   const radio = await getPublicRadioConfig();
@@ -18,13 +18,10 @@ export async function LiveStrip() {
       </div>
       <p className="mt-4 font-display text-5xl font-extrabold text-angel-gold">{radio.frequency}</p>
       <p className="mt-3 text-sm text-on-ink-muted">
-        {configured
-          ? "Open the listening page to tune in."
-          : "Our online stream is not available yet. Tune in on the radio at " + radio.frequency + "."}
+        {configured ? "Press play to listen while you browse." : "Our online stream is not available yet. Tune in on the radio at " + radio.frequency + "."}
       </p>
-      <ButtonLink href="/listen" variant="gold" className="mt-5">
-        {configured ? "Listen online" : "Listening page"}
-      </ButtonLink>
+      <HomePlayButton />
+      {!configured && <ButtonLink href="/listen" variant="gold" className="mt-5">Listening page</ButtonLink>}
     </div>
   );
 }
