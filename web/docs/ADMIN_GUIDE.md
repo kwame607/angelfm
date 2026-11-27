@@ -1,0 +1,48 @@
+# Angel FM — Administrator Guide (for station staff)
+
+Sign in at `https://<your-domain>/admin/login`. There is one administrator
+account; there is no public registration. Everything you change appears on the
+public site within about a minute.
+
+## Daily tasks
+
+| I want to… | Go to | Notes |
+|---|---|---|
+| Publish a news story | **News → New article** | Title, summary, category, picture, body. **Publish** makes it public; **Save draft** keeps it private. Set a future date to schedule it. |
+| Fix or remove a story | **News →** the story | Change the status to *Draft* to hide it, or use Delete (asks to confirm). |
+| Feature or flag trending | Article page | "Featured" shows it as the homepage top story; "Trending" lists it in Trending. |
+| Add pictures | **Media Library** | JPG/PNG/WebP up to 5 MB. Large photos are shrunk automatically; GPS data is removed. Always fill in the description (helps accessibility and search). |
+| Add a presenter | **Presenters → New** | Name, bio, photo, social links (https only). |
+| Add a programme | **Programmes → New** | Tick the days, set start/end times (Ghana time, 24-hour; an end time after midnight is fine), choose presenters. Untick *Active* to hide it. |
+| Run an advert | **Advertisements → New** | Pick the placement, upload the banner, set the link and start/end dates. Status shows Live / Scheduled / Expired / Paused. Ads stop automatically at the end date. |
+| Update contact details | **Website Settings** | Address, phone, email, social pages. Empty fields are simply not shown on the site. |
+| Change the stream | **Radio Settings** | See below. |
+| Change your password | **Admin Profile** | You must enter the current password. Use 12+ characters. |
+
+## Radio Settings (stream)
+
+1. Get from your streaming provider: the **https** stream URL and its format (MP3, AAC or HLS/.m3u8).
+2. Paste it into **Stream URL**, choose the format, **Save**.
+3. Use the test player on that page to confirm you hear audio.
+4. Optional: **Backup stream URL** (used automatically if the main one keeps failing) and **Now-playing URL** (the provider's metadata address; the site shows the current song only if it understands the format).
+
+The website never claims you are "Live" unless audio is genuinely playing for
+the listener. If the stream is blank the site says online listening is
+unavailable and points people to 96.1 FM. The FM frequency is *not* a stream address.
+
+## If something looks wrong
+
+| Symptom | Check |
+|---|---|
+| Story not visible | Status must be *Published* and the date not in the future. Wait a minute. |
+| Picture upload fails | Is it under 5 MB and a real image? Is storage (R2) connected? The Media page says if not. |
+| Listeners hear nothing | Is the studio encoder sending to the provider? Test the URL in the test player. Try the backup stream. |
+| Ad not showing | Status must be *Live*: enabled, started, not ended; placement matches the page. |
+| Locked out | Supabase dashboard → Authentication → Users → send a password recovery. |
+
+## Good habits
+
+- Write the summary yourself (it appears on cards and in Google/WhatsApp previews).
+- Give every picture a short description.
+- Don't paste text straight from Word with odd formatting; use *Clear formatting* in the editor.
+- Review **Overview → Recent activity** occasionally: it logs every change.
