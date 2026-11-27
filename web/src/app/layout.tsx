@@ -4,15 +4,21 @@ import "./globals.css";
 import { getPublicEnv } from "@/lib/env";
 
 // Self-hosted (OFL-licensed) fonts: no third-party font requests, faster on mobile networks.
-const inter = localFont({
-  src: "../fonts/inter-latin-wght-normal.woff2",
-  variable: "--font-inter",
+const sans = localFont({
+  src: "../fonts/figtree-latin-wght-normal.woff2",
+  variable: "--font-sans-body",
   display: "swap",
-  weight: "100 900",
+  weight: "300 900",
+});
+const display = localFont({
+  src: "../fonts/bricolage-grotesque-latin-wght-normal.woff2",
+  variable: "--font-display-face",
+  display: "swap",
+  weight: "200 800",
 });
 const serif = localFont({
   src: "../fonts/source-serif-4-latin-wght-normal.woff2",
-  variable: "--font-serif",
+  variable: "--font-serif-face",
   display: "swap",
   weight: "200 900",
 });
@@ -48,9 +54,15 @@ export const viewport: Viewport = {
   themeColor: "#0b0b0c",
 };
 
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("angel-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){}})()`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${condensed.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${display.variable} ${serif.variable} ${condensed.variable}`}>
+      <head>
+        {/* Applies the saved (or system) theme before first paint, so there is no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"

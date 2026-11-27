@@ -2,45 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { primaryNav } from "@/lib/navigation";
 import { MobileNav } from "./MobileNav";
-import { ButtonLink } from "@/components/ui/Button";
+import { NavLinks } from "./NavLinks";
+import { ThemeToggle } from "./ThemeToggle";
+import { ListenButton } from "@/components/radio/ListenButton";
 
+/** Floating pill navigation. Stays dark in both themes (the logo is designed for black). */
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 bg-ink text-on-ink">
-      <div className="border-b border-white/10">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
-          <Link href="/" aria-label="Angel 96.1 FM home" className="flex shrink-0 items-center">
-            <Image
-              src="/brand/angel-fm-logo.jpg"
-              alt="Angel 96.1 FM — the finest"
-              width={600}
-              height={404}
-              priority
-              className="h-12 w-auto"
-            />
-          </Link>
-
-          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-3 py-2 font-label text-base font-semibold uppercase tracking-[0.1em] text-on-ink-muted transition-colors hover:text-angel-gold"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <ButtonLink href="/listen" variant="gold" className="hidden sm:inline-flex">
-              Listen Live
-            </ButtonLink>
-            <MobileNav items={primaryNav} />
-          </div>
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
+      <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 rounded-full py-2 pl-3 pr-2 text-on-ink sm:pl-4">
+        {/* Background layer carries the blur: blur on the pill itself would trap the full-screen mobile menu inside it. */}
+        <div aria-hidden className="absolute inset-0 -z-10 rounded-full border border-white/10 bg-ink/90 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.55)] backdrop-blur-xl" />
+        <Link href="/" aria-label="Angel 96.1 FM home" className="flex shrink-0 items-center">
+          <Image src="/brand/angel-fm-logo.jpg" alt="Angel 96.1 FM — the finest" width={600} height={404} priority className="h-11 w-auto rounded-full" />
+        </Link>
+        <NavLinks items={primaryNav} />
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <ListenButton className="hidden sm:inline-flex" />
+          <MobileNav items={primaryNav} />
         </div>
       </div>
-      <div aria-hidden className="h-1 bg-angel-red" />
     </header>
   );
 }

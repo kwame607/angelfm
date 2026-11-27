@@ -59,14 +59,14 @@ export default async function ArticlePage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structured) }} />
       <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
         <article>
-          <nav aria-label="Breadcrumb" className="mb-3 text-sm text-muted">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted">
             <Link href="/news" className="hover:underline">News</Link>
             {" / "}
             <Link href={`/news/category/${article.category.slug}`} className="hover:underline">{article.category.name}</Link>
           </nav>
-          <h1 className="text-3xl font-extrabold sm:text-5xl">{article.title}</h1>
+          <h1 className="text-4xl font-extrabold leading-[1.05] sm:text-6xl">{article.title}</h1>
           <p className="mt-4 text-lg text-muted">{article.excerpt}</p>
-          <p className="mt-4 border-y border-rule py-3 text-sm text-muted">
+          <p className="mt-5 text-sm text-muted">
             {article.author && <span>By <strong className="text-body">{article.author}</strong> · </span>}
             <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
           </p>
@@ -83,8 +83,8 @@ export default async function ArticlePage({ params }: Props) {
           <AdSlot placement="news_article_sidebar" ratio="aspect-[4/5]" />
           {trending.length > 0 && (
             <div>
-              <h2 className="kicker mb-2">Trending</h2>
-              <div className="border-t-2 border-ink">
+              <h2 className="mb-3 text-2xl font-extrabold">Trending</h2>
+              <div className="space-y-1 rounded-3xl border border-rule bg-surface p-3">
                 {trending.map((a) => (
                   <ArticleCard key={a.slug} article={a} variant="compact" />
                 ))}
@@ -95,8 +95,8 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       {related.length > 0 && (
-        <section className="mt-14 border-t-2 border-ink pt-6" aria-labelledby="related-heading">
-          <h2 id="related-heading" className="mb-6 text-2xl font-bold">Related stories</h2>
+        <section className="mt-16" aria-labelledby="related-heading">
+          <h2 id="related-heading" className="mb-6 text-3xl font-extrabold">Related stories</h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((a) => (
               <ArticleCard key={a.slug} article={a} />

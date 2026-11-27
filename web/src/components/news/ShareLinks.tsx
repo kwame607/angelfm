@@ -9,14 +9,14 @@ export function ShareLinks({ url, title }: { url: string; title: string }) {
   ];
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="font-label text-sm font-bold uppercase tracking-[0.12em] text-muted">Share</span>
+      <span className="text-sm font-semibold text-muted">Share this story</span>
       {links.map((l) => (
         <a
           key={l.label}
           href={l.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm border border-rule px-3 py-1 text-sm font-semibold hover:border-ink hover:bg-ink hover:text-on-ink"
+          className="rounded-full bg-chip px-4 py-2 text-sm font-semibold transition-colors hover:bg-body hover:text-paper"
         >
           {l.label}
         </a>

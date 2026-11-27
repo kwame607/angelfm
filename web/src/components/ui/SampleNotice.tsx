@@ -5,8 +5,8 @@ export function SampleNotice() {
   if (!isPlaceholderContent()) return null;
   return (
     <div className="bg-angel-gold text-ink">
-      <p className="mx-auto max-w-7xl px-4 py-1.5 text-center font-label text-sm font-semibold uppercase tracking-[0.1em] sm:px-6">
-        Design preview — all stories, presenters and programmes shown are sample content
+      <p className="mx-auto max-w-7xl px-4 py-1.5 text-center text-sm font-semibold sm:px-6">
+        Design preview: stories, presenters and programmes shown here are sample content.
       </p>
     </div>
   );
