@@ -20,7 +20,11 @@ offered (e.g. EU West or South Africa), plus the email address the single
 administrator will use. The administrator password is set during the secure
 setup procedure in Phase 3 — it is never stored in code or in `.env` files.
 
-## 2. Cloudflare R2 (needed to upload images) — step by step in `R2_SETUP.md`
+## 2. Image storage — default is Supabase Storage (`STORAGE_SETUP.md`, nothing extra to buy)
+
+No new credentials: uses the Supabase secret key and a public `media` bucket.
+
+### Optional: Cloudflare R2 instead — `R2_SETUP.md` (requires a payment card)
 
 | Variable | Exposure | Notes |
 |---|---|---|

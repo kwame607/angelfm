@@ -2,7 +2,7 @@ import { MediaLibrary, type MediaItem } from "@/components/admin/MediaLibrary";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { requireAdmin } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
-import { isR2Configured } from "@/lib/env";
+import { isStorageConfigured } from "@/lib/storage";
 
 export const metadata = { title: "Media Library" };
 
@@ -18,7 +18,7 @@ export default async function MediaPage() {
     <>
       <PageHeader title="Media Library" description="Upload and manage images used across the website." />
       {error && <p role="alert" className="mb-4 text-sm text-angel-red-dark">Could not load the library.</p>}
-      <MediaLibrary items={(data ?? []) as MediaItem[]} r2Ready={isR2Configured()} />
+      <MediaLibrary items={(data ?? []) as MediaItem[]} storageReady={isStorageConfigured()} />
     </>
   );
 }

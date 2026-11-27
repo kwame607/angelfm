@@ -14,7 +14,7 @@ export interface MediaItem {
 
 const kb = (n: number) => (n >= 1024 * 1024 ? `${(n / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
 
-export function MediaLibrary({ items, r2Ready }: { items: MediaItem[]; r2Ready: boolean }) {
+export function MediaLibrary({ items, storageReady }: { items: MediaItem[]; storageReady: boolean }) {
   const router = useRouter();
   const input = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
@@ -47,9 +47,9 @@ export function MediaLibrary({ items, r2Ready }: { items: MediaItem[]; r2Ready: 
 
   return (
     <div className="space-y-6">
-      {!r2Ready && (
+      {!storageReady && (
         <p role="status" className="border-l-4 border-angel-gold bg-amber-50 px-3 py-2 text-sm">
-          File storage is not connected yet, so uploads are disabled. Add the Cloudflare R2 values listed in <code>docs/CREDENTIALS.md</code>.
+          File storage is not connected yet, so uploads are disabled. Follow <code>docs/STORAGE_SETUP.md</code> (about 5 minutes).
         </p>
       )}
 
@@ -68,7 +68,7 @@ export function MediaLibrary({ items, r2Ready }: { items: MediaItem[]; r2Ready: 
         </div>
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <input ref={input} id="files" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif" multiple
-            disabled={!r2Ready || busy} onChange={(e) => upload(e.target.files)} className="max-w-full text-sm" aria-label="Choose images" />
+            disabled={!storageReady || busy} onChange={(e) => upload(e.target.files)} className="max-w-full text-sm" aria-label="Choose images" />
           {busy && <span className="text-sm text-muted" role="status">Uploading…</span>}
         </div>
         <p className="mt-2 text-xs text-muted">JPG, PNG, WebP, AVIF or GIF, up to 5 MB each. Large photos are shrunk automatically and saved as WebP; location data is removed.</p>

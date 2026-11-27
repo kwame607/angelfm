@@ -21,6 +21,23 @@ function r2RemotePattern() {
   }
 }
 
+/** Images stored in Supabase Storage (public bucket) are served from the project URL. */
+function supabaseRemotePattern() {
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!base) return [];
+  try {
+    const u = new URL(base);
+    return [{
+      protocol: u.protocol.replace(":", "") as "http" | "https",
+      hostname: u.hostname,
+      ...(u.port ? { port: u.port } : {}),
+      pathname: "/storage/v1/object/public/**",
+    }];
+  } catch {
+    return [];
+  }
+}
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -41,7 +58,7 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
-  images: { remotePatterns: r2RemotePattern() },
+  images: { remotePatterns: [...r2RemotePattern(), ...supabaseRemotePattern()] },
   experimental: {
     // Media uploads are posted as server actions. The browser shrinks photos
     // first; 5 MB is the hard cap enforced again on the server.

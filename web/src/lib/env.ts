@@ -21,6 +21,8 @@ const serverSchema = z.object({
   R2_PUBLIC_BASE_URL: z.url().optional(),
   /** Optional override of the S3 endpoint (local testing only). Leave unset in production. */
   R2_ENDPOINT: z.url().optional(),
+  /** Supabase Storage bucket for images (public). Defaults to "media". */
+  STORAGE_BUCKET: z.string().regex(/^[a-z0-9][a-z0-9-]{1,62}$/).optional(),
 });
 
 /** Treat empty strings (as in a blank .env line) as unset. */
@@ -69,4 +71,10 @@ export function isR2Configured(): boolean {
       env.R2_BUCKET &&
       env.R2_PUBLIC_BASE_URL,
   );
+}
+
+/** Supabase Storage needs the project URL and the server-only secret key. */
+export function isSupabaseStorageConfigured(): boolean {
+  const env = getPublicEnv();
+  return Boolean(env.NEXT_PUBLIC_SUPABASE_URL && getServerEnv().SUPABASE_SECRET_KEY);
 }
