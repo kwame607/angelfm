@@ -48,7 +48,7 @@ export default async function ProgrammePage({ params }: Props) {
                   {presenters.map((p, i) => (
                     <span key={p.slug}>
                       {i > 0 && ", "}
-                      <Link href={`/presenters/${p.slug}`} className="text-angel-red hover:underline">{p.name}</Link>
+                      <Link href={`/presenters/${p.slug}`} className="text-accent hover:underline">{p.name}</Link>
                     </span>
                   ))}
                 </dd>

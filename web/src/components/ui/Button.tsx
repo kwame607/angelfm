@@ -7,7 +7,7 @@ const base =
   "inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold tracking-wide transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-angel-red text-white hover:bg-angel-red-dark",
+  primary: "bg-btn text-btn-fg hover:bg-btn-hover",
   gold: "bg-angel-gold text-ink hover:bg-angel-gold-soft",
   outline: "border border-current hover:bg-body hover:text-paper",
   ghost: "text-current hover:bg-black/5",

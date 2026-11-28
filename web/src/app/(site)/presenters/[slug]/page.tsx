@@ -38,7 +38,7 @@ export default async function PresenterPage({ params }: Props) {
               <ul className="space-y-2">
                 {programmes.map((p) => (
                   <li key={p.slug}>
-                    <Link href={`/programmes/${p.slug}`} className="font-semibold hover:text-angel-red">{p.title}</Link>
+                    <Link href={`/programmes/${p.slug}`} className="font-semibold hover:text-accent">{p.title}</Link>
                     <span className="block text-sm text-muted">{formatDays(p.days)} · {formatTime(p.startTime)}–{formatTime(p.endTime)}</span>
                   </li>
                 ))}
@@ -49,7 +49,7 @@ export default async function PresenterPage({ params }: Props) {
             <ul className="mt-6 flex gap-3 text-sm">
               {social.map((s) => (
                 <li key={s.platform}>
-                  <a href={s.url!} target="_blank" rel="noopener noreferrer" className="capitalize text-angel-red hover:underline">{s.platform === "x" ? "X" : s.platform}</a>
+                  <a href={s.url!} target="_blank" rel="noopener noreferrer" className="capitalize text-accent hover:underline">{s.platform === "x" ? "X" : s.platform}</a>
                 </li>
               ))}
             </ul>
