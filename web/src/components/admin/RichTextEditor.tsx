@@ -52,7 +52,7 @@ export function RichTextEditor({ initialHtml, onChange }: { initialHtml: string;
 
   return (
     <div className="border border-rule bg-white">
-      <div className="flex flex-wrap gap-1 border-b border-rule bg-[#f7f5f0] p-1.5" role="toolbar" aria-label="Formatting">
+      <div className="flex flex-wrap gap-1 border-b border-rule bg-chip p-1.5" role="toolbar" aria-label="Formatting">
         <Btn label="Bold" active={editor.isActive("bold")} onClick={() => c().toggleBold().run()}><b>B</b></Btn>
         <Btn label="Italic" active={editor.isActive("italic")} onClick={() => c().toggleItalic().run()}><i>I</i></Btn>
         <Btn label="Underline" active={editor.isActive("underline")} onClick={() => c().toggleUnderline().run()}><u>U</u></Btn>

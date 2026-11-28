@@ -23,7 +23,7 @@ export default async function ProgrammesAdminPage({ searchParams }: { searchPara
       {data && data.length ? (
         <div className="overflow-x-auto border border-rule bg-surface">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-rule bg-[#f7f5f0] text-xs uppercase tracking-wide text-muted"><tr><th className="px-4 py-2">Programme</th><th className="px-4 py-2">When</th><th className="px-4 py-2">Status</th></tr></thead>
+            <thead className="border-b border-rule bg-chip text-xs uppercase tracking-wide text-muted"><tr><th className="px-4 py-2">Programme</th><th className="px-4 py-2">When</th><th className="px-4 py-2">Status</th></tr></thead>
             <tbody className="divide-y divide-rule">
               {data.map((p) => (
                 <tr key={p.id}>

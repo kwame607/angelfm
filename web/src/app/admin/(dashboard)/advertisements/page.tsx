@@ -27,7 +27,7 @@ export default async function AdsAdminPage({ searchParams }: { searchParams: Pro
       {data && data.length ? (
         <div className="overflow-x-auto border border-rule bg-surface">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-rule bg-[#f7f5f0] text-xs uppercase tracking-wide text-muted"><tr><th className="px-4 py-2">Advertiser</th><th className="px-4 py-2">Placement</th><th className="px-4 py-2">Runs</th><th className="px-4 py-2">Status</th></tr></thead>
+            <thead className="border-b border-rule bg-chip text-xs uppercase tracking-wide text-muted"><tr><th className="px-4 py-2">Advertiser</th><th className="px-4 py-2">Placement</th><th className="px-4 py-2">Runs</th><th className="px-4 py-2">Status</th></tr></thead>
             <tbody className="divide-y divide-rule">
               {data.map((a) => {
                 const st = adStatus(a, now);

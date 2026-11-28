@@ -52,7 +52,7 @@ export default async function NewsAdminPage({ searchParams }: Props) {
       {data && data.length > 0 ? (
         <div className="overflow-x-auto border border-rule bg-surface">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-rule bg-[#f7f5f0] text-xs uppercase tracking-wide text-muted">
+            <thead className="border-b border-rule bg-chip text-xs uppercase tracking-wide text-muted">
               <tr><th className="px-4 py-2">Headline</th><th className="px-4 py-2">Category</th><th className="px-4 py-2">Status</th><th className="px-4 py-2">Date</th></tr>
             </thead>
             <tbody className="divide-y divide-rule">
