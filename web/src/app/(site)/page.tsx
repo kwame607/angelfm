@@ -9,7 +9,8 @@ import {
 import { getPublicRadioConfig } from "@/lib/radio/config";
 import { Hero } from "@/components/radio/Hero";
 import { ArticleCard } from "@/components/news/ArticleCard";
-import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
+import Link from "next/link";
+import { ProgrammeTimetable } from "@/components/programmes/ProgrammeTimetable";
 import { PresenterCard } from "@/components/presenters/PresenterCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -95,23 +96,22 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Programmes */}
-      {programmes.length > 0 && (
-        <section className="border-y border-rule bg-chip/50">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <SectionHeading title="Programmes" subtitle="What is on Angel 96.1 FM, and who is presenting." href="/programmes" linkLabel="Full schedule" />
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {programmes.slice(0, 3).map((p) => (
-                <ProgrammeCard
-                  key={p.slug}
-                  programme={p}
-                  presenterNames={p.presenterSlugs.map((s) => presenterByslug.get(s)).filter((n): n is string => Boolean(n))}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Weekly timetable (built from the programmes managed in the admin) */}
+      <section className="border-y border-rule bg-chip/50">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+          {programmes.length > 0 ? (
+            <>
+              <ProgrammeTimetable programmes={programmes} presenterNames={Object.fromEntries(presenterByslug)} />
+              <div className="-mt-8 text-right"><Link href="/programmes" className="text-sm font-semibold text-accent hover:underline">See all programmes</Link></div>
+            </>
+          ) : (
+            <>
+              <SectionHeading title="Programmes" href="/programmes" linkLabel="Programmes" />
+              <p className="rounded-3xl border border-dashed border-rule p-6 text-muted">The weekly programme timetable will appear here once the station publishes its schedule. In the meantime, tune in at 96.1 FM.</p>
+            </>
+          )}
+        </div>
+      </section>
 
       {/* Presenters */}
       {presenters.length > 0 && (
