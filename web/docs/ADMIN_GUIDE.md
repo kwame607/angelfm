@@ -19,6 +19,16 @@ public site within about a minute.
 | Change the stream | **Radio Settings** | See below. |
 | Change your password | **Admin Profile** | You must enter the current password. Use 12+ characters. |
 
+## Weekly timetable
+
+The timetable on the **Programmes** page is built from the programmes you add under **Programmes** in the admin. There is nothing separate to maintain.
+
+- To change a show's days or times, edit the programme and save. The timetable updates straight away.
+- A show that ends after midnight (for example 11 PM to 2 AM) is listed on the day it starts.
+- To take a show off the timetable without deleting it, untick **Active**.
+- If two active shows overlap, a yellow warning appears at the top of the admin Programmes list. Fix the times so the timetable is clear.
+- "Scheduled now" and "Up next" on the website follow the timetable and Ghana time. They do not mean the station is broadcasting live; only the Listen player shows that.
+
 ## Write with AI (news editor)
 
 On **News → New article** (and when editing), open **Write with AI**, paste your rough notes, a statement or a press release, and press **Write draft**.

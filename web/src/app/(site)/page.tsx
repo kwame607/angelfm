@@ -51,6 +51,12 @@ export default async function HomePage() {
       {/* Lead story */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <SectionHeading title="Headlines" href="/news" linkLabel="All news" />
+        {!featured && sideStories.length === 0 && trending.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-rule p-8 text-center sm:p-12">
+            <p className="font-display text-2xl font-bold">No stories yet</p>
+            <p className="mx-auto mt-2 max-w-md text-muted">The Angel 96.1 FM newsroom has not published any stories yet. Tune in at 96.1 FM, and check back here soon for the latest headlines.</p>
+          </div>
+        ) : (
         <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
           <div className="space-y-8">
             {featured && <ArticleCard article={featured} variant="lead" priority />}
@@ -70,6 +76,7 @@ export default async function HomePage() {
             <AdSlot placement="home_featured" className="mt-4" ratio="aspect-[4/3]" />
           </aside>
         </div>
+        )}
       </section>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">

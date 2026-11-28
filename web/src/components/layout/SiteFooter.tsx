@@ -48,7 +48,7 @@ export async function SiteFooter() {
                 {info.email && <p><a href={`mailto:${info.email}`} className="hover:text-angel-gold">{info.email}</a></p>}
               </address>
             ) : (
-              <p className="mt-3 text-sm">Contact details coming soon.</p>
+              <p className="mt-3 text-sm">Contact details will be listed here soon.</p>
             )}
             {social.length > 0 && (
               <ul className="mt-4 flex flex-wrap gap-2 text-sm">
