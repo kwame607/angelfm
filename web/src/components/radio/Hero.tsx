@@ -22,7 +22,7 @@ export function Hero() {
 
         <div className="relative grid gap-8 px-6 pb-8 pt-10 sm:px-12 sm:pt-14 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-4 md:pb-10">
           <div>
-            <h1 className="text-5xl font-extrabold leading-[0.95] sm:text-7xl lg:text-8xl">
+            <h1 className="text-5xl font-bold leading-[1.02] sm:text-7xl lg:text-8xl">
               <span className="sr-only">{config.stationName}: </span>
               {config.tagline.replace(/^…?/, "…")}
             </h1>

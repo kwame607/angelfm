@@ -25,7 +25,7 @@ export async function SiteFooter() {
         <div aria-hidden className="absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-angel-red/25 blur-3xl" />
         <div className="relative grid gap-10 px-6 py-12 sm:px-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <p className="font-display text-4xl font-extrabold tracking-tight text-on-ink sm:text-5xl">Angel 96.1 FM</p>
+            <p className="font-display text-4xl font-bold tracking-tight text-on-ink sm:text-5xl">Angel 96.1 FM</p>
             <p className="mt-1 font-display text-xl font-semibold text-angel-gold">…the finest</p>
             <p className="mt-4 max-w-xs text-sm">News, music and entertainment for listeners across Ghana.</p>
           </div>
