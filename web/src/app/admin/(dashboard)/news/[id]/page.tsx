@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { isAiConfigured } from "@/lib/env";
 import { ArticleForm } from "@/components/admin/ArticleForm";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { requireAdmin } from "@/lib/auth/session";
@@ -29,6 +30,7 @@ export default async function EditArticlePage({ params, searchParams }: Props) {
       <PageHeader title="Edit article" />
       {error === "delete" && <p role="alert" className="mb-4 text-sm text-angel-red-dark">The article could not be deleted. Please try again.</p>}
       <ArticleForm
+        aiEnabled={isAiConfigured()}
         flash={saved ? "saved" : undefined}
         categories={categories ?? []}
         media={media ?? []}

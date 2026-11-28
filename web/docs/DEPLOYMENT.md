@@ -15,6 +15,7 @@ Prerequisites done first: `ADMIN_SETUP.md` (Supabase + admin account) and
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | from Supabase |
 | `SUPABASE_SECRET_KEY` | from Supabase (server only; mark Sensitive) |
 | `STORAGE_BUCKET` | only if not using the default `media` bucket |
+| `ANTHROPIC_API_KEY` | **optional**, enables “Write with AI” in the news editor. Server-only: never prefix with `NEXT_PUBLIC_`. Create it at console.anthropic.com in the station's name and set a monthly spend limit there. `ANTHROPIC_MODEL` optionally overrides the model; do not set `ANTHROPIC_BASE_URL` in production |
 | `R2_…` (five variables) | **optional**, only if using Cloudflare R2 instead of Supabase Storage |
 
    Image hosts are allowed at **build time** from `NEXT_PUBLIC_SUPABASE_URL` (and `R2_PUBLIC_BASE_URL` if used): change either → redeploy. Do **not** set `R2_ENDPOINT` in production.

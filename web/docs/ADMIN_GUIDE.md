@@ -19,6 +19,17 @@ public site within about a minute.
 | Change the stream | **Radio Settings** | See below. |
 | Change your password | **Admin Profile** | You must enter the current password. Use 12+ characters. |
 
+## Write with AI (news editor)
+
+On **News → New article** (and when editing), open **Write with AI**, paste your rough notes, a statement or a press release, and press **Write draft**.
+
+- It writes a headline, summary, article and search text **using only what you pasted**. It does not look anything up.
+- Nothing is saved or published. Press **Use this draft** to put it in the form, then read it, fix it, and save or publish as usual.
+- **Check before publishing** lists what the notes did not say (a name, a figure, a source). Answer those yourself; the AI is told not to guess.
+- Always check names, numbers, dates and quotes against your notes. Paste quotes exactly as said.
+- Limit: 12 drafts per hour per administrator. Each use is recorded in the activity log (the pasted notes are not stored).
+- If the panel says it is not set up, the site administrator must add `ANTHROPIC_API_KEY` (see DEPLOYMENT.md).
+
 ## Radio Settings (stream)
 
 1. Get from your streaming provider: the **https** stream URL and its format (MP3, AAC or HLS/.m3u8).

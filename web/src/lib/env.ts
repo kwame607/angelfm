@@ -22,6 +22,11 @@ const serverSchema = z.object({
   /** Optional override of the S3 endpoint (local testing only). Leave unset in production. */
   R2_ENDPOINT: z.url().optional(),
   /** Supabase Storage bucket for images (public). Defaults to "media". */
+  /** Optional. Enables the "Write with AI" button in the news editor. Server-only. */
+  ANTHROPIC_API_KEY: z.string().min(1).optional(),
+  ANTHROPIC_MODEL: z.string().min(1).optional(),
+  /** Optional override of the API address (local testing only). */
+  ANTHROPIC_BASE_URL: z.url().optional(),
   STORAGE_BUCKET: z.string().regex(/^[a-z0-9][a-z0-9-]{1,62}$/).optional(),
 });
 
@@ -77,4 +82,8 @@ export function isR2Configured(): boolean {
 export function isSupabaseStorageConfigured(): boolean {
   const env = getPublicEnv();
   return Boolean(env.NEXT_PUBLIC_SUPABASE_URL && getServerEnv().SUPABASE_SECRET_KEY);
+}
+
+export function isAiConfigured(): boolean {
+  return Boolean(getServerEnv().ANTHROPIC_API_KEY);
 }
