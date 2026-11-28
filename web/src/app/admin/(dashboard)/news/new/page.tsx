@@ -1,3 +1,4 @@
+import { isAiConfigured } from "@/lib/env";
 import { ArticleForm } from "@/components/admin/ArticleForm";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { requireAdmin } from "@/lib/auth/session";
@@ -21,6 +22,7 @@ export default async function NewArticlePage() {
         </p>
       )}
       <ArticleForm
+        aiEnabled={isAiConfigured()}
         categories={categories ?? []}
         media={media ?? []}
         values={{ title: "", slug: "", excerpt: "", bodyHtml: "", categoryId: "", featuredImageId: "", authorName: "", imageAlt: "", seoTitle: "", seoDescription: "", publishedAt: "", isFeatured: false, isTrending: false, status: "draft" }}

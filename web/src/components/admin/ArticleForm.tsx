@@ -8,6 +8,8 @@ import { Field, FormMessage, TextInput, inputClass } from "./Field";
 import { ConfirmButton } from "./ConfirmButton";
 import { RichTextEditor } from "./RichTextEditor";
 import { MediaPicker, type PickerMedia } from "./MediaPicker";
+import { AiWriter } from "./AiWriter";
+import type { ArticleDraft } from "@/lib/ai/article-draft";
 import { slugify } from "@/lib/slug";
 import type { ActionState } from "@/lib/admin-form";
 import { deleteArticle, saveArticle } from "@/app/admin/(dashboard)/news/actions";
@@ -23,14 +25,27 @@ export interface ArticleFormValues {
 
 const init: ActionState = {};
 
-export function ArticleForm({ values, categories, media, flash }: { values: ArticleFormValues; categories: { id: string; name: string }[]; media: PickerMedia[]; flash?: string }) {
+export function ArticleForm({ values, categories, media, flash, aiEnabled = false }: { values: ArticleFormValues; categories: { id: string; name: string }[]; media: PickerMedia[]; flash?: string; aiEnabled?: boolean }) {
   const [state, onSubmit, pending] = useKeepForm(saveArticle, init);
   const [title, setTitle] = useState(values.title);
   const [slug, setSlug] = useState(values.slug);
   const [slugTouched, setSlugTouched] = useState(Boolean(values.slug));
   const [body, setBody] = useState(values.bodyHtml);
   const [imageAlt, setImageAlt] = useState(values.imageAlt);
+  const [editorHtml, setEditorHtml] = useState(values.bodyHtml);
+  const [editorKey, setEditorKey] = useState(0);
+  const [excerpt, setExcerpt] = useState(values.excerpt);
+  const [seoTitle, setSeoTitle] = useState(values.seoTitle);
+  const [seoDescription, setSeoDescription] = useState(values.seoDescription);
   const published = values.status === "published";
+
+  /** Fills the form from an AI draft. Never saves or publishes; slug follows the headline only if untouched. */
+  const applyDraft = (d: ArticleDraft) => {
+    setTitle(d.headline);
+    if (!slugTouched) setSlug(slugify(d.headline, 120));
+    setBody(d.bodyHtml); setEditorHtml(d.bodyHtml); setEditorKey((k) => k + 1);
+    setExcerpt(d.summary); setSeoTitle(d.seoTitle); setSeoDescription(d.seoDescription);
+  };
 
   return (
     <div className="space-y-6">
@@ -40,12 +55,13 @@ export function ArticleForm({ values, categories, media, flash }: { values: Arti
 
         <div className="grid gap-6 lg:grid-cols-[1fr_20rem]">
           <div className="space-y-5">
+            <AiWriter enabled={aiEnabled} hasContent={Boolean(title.trim() || body)} onApply={applyDraft} />
             <Field label="Headline" htmlFor="title">
               <TextInput id="title" name="title" required maxLength={200} value={title}
                 onChange={(e) => { setTitle(e.target.value); if (!slugTouched) setSlug(slugify(e.target.value, 120)); }} />
             </Field>
             <Field label="Article" htmlFor="body">
-              <div id="body" className="mt-1"><RichTextEditor initialHtml={values.bodyHtml} onChange={setBody} /></div>
+              <div id="body" className="mt-1"><RichTextEditor key={editorKey} initialHtml={editorHtml} onChange={setBody} /></div>
             </Field>
             <div className="border border-rule bg-surface p-4">
               <p className="text-sm font-semibold">Featured image</p>
@@ -55,7 +71,7 @@ export function ArticleForm({ values, categories, media, flash }: { values: Arti
               </Field>
             </div>
             <Field label="Summary" htmlFor="excerpt" hint="Shown on cards and in search results. Leave blank to use the start of the article.">
-              <textarea id="excerpt" name="excerpt" rows={3} maxLength={500} defaultValue={values.excerpt} className={inputClass} />
+              <textarea id="excerpt" name="excerpt" rows={3} maxLength={500} value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className={inputClass} />
             </Field>
           </div>
 
@@ -81,9 +97,9 @@ export function ArticleForm({ values, categories, media, flash }: { values: Arti
             <details className="text-sm">
               <summary className="cursor-pointer font-semibold">Search engine (SEO)</summary>
               <div className="mt-3 space-y-4">
-                <Field label="SEO title" htmlFor="seo_title" hint="Up to 70 characters."><TextInput id="seo_title" name="seo_title" defaultValue={values.seoTitle} maxLength={70} /></Field>
+                <Field label="SEO title" htmlFor="seo_title" hint="Up to 70 characters."><TextInput id="seo_title" name="seo_title" maxLength={70} value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} /></Field>
                 <Field label="SEO description" htmlFor="seo_description" hint="Up to 200 characters.">
-                  <textarea id="seo_description" name="seo_description" rows={3} maxLength={200} defaultValue={values.seoDescription} className={inputClass} />
+                  <textarea id="seo_description" name="seo_description" rows={3} maxLength={200} value={seoDescription} onChange={(e) => setSeoDescription(e.target.value)} className={inputClass} />
                 </Field>
               </div>
             </details>
