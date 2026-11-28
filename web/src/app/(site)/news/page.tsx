@@ -29,7 +29,7 @@ export default async function NewsPage() {
           </div>
         </div>
       ) : (
-        <p className="text-muted">No stories have been published yet.</p>
+        <p className="text-muted">No stories have been published yet. Please check back soon for the latest from the Angel 96.1 FM newsroom.</p>
       )}
     </div>
   );

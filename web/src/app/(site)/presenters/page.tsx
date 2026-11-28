@@ -21,7 +21,7 @@ export default async function PresentersPage() {
           ))}
         </div>
       ) : (
-        <p className="text-muted">Presenter profiles will be published soon.</p>
+        <p className="text-muted">Our presenters will be introduced here soon.</p>
       )}
     </div>
   );

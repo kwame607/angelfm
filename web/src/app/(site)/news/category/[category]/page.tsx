@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { withPlaceholder } from "@/lib/static-params";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategories, getCategoryBySlug, getLatestArticles } from "@/lib/content";
 import { ArticleCard } from "@/components/news/ArticleCard";
@@ -41,7 +42,7 @@ export default async function CategoryPage({ params }: Props) {
           ))}
         </div>
       ) : (
-        <p className="text-muted">No stories in this category yet.</p>
+        <p className="text-muted">There are no stories in this category yet. <Link href="/news" className="font-semibold text-accent hover:underline">Read all news</Link>.</p>
       )}
     </div>
   );
