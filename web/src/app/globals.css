@@ -17,6 +17,8 @@
   --color-on-ink: #f4f4f6;
   --color-on-ink-muted: #b4b6bf;
   --color-live: #1f9d57;
+  --color-navy: #0c1536;
+  --color-navy-soft: #16214a;
 
   /* Theme-aware (light defaults; overridden for dark below) */
   --color-paper: #f3f4f7;
@@ -45,6 +47,15 @@ html[data-theme="dark"] .site-theme {
   --color-muted: #a0a5b4;
   --color-accent: #ff6a6a;
   --color-chip: #1f222b;
+}
+/* Admin area: navy sidebar, soft blue-grey canvas, rounder corners, cleaner headings. */
+.admin-theme {
+  --color-paper: #f1f4fb;
+  --color-rule: #e3e8f3;
+  --color-chip: #eaeef8;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --font-display: var(--font-sans-body), "Segoe UI", system-ui, sans-serif;
 }
 html[data-theme="dark"]:has(.site-theme) body { background: #0c0d11; }
 

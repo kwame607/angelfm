@@ -1,6 +1,7 @@
 import { Suspense } from "react";
-import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth/session";
+import { getAttention } from "@/lib/admin-overview";
 import { logout } from "@/app/admin/actions";
 
 /**
@@ -10,11 +11,17 @@ import { logout } from "@/app/admin/actions";
  */
 async function Shell({ children }: { children: React.ReactNode }) {
   const admin = await requireAdmin();
+  const alerts = await getAttention();
+  const today = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "Africa/Accra" }).format(new Date());
   return (
-    <div className="flex flex-1 flex-col lg:flex-row">
-      <AdminSidebar email={admin.email} logoutAction={logout} />
-      <div className="min-w-0 flex-1 px-4 py-6 sm:px-8 sm:py-8">{children}</div>
-    </div>
+    <AdminShell
+      user={{ name: admin.displayName || admin.email, email: admin.email, lastSignIn: admin.lastSignInAt }}
+      alerts={alerts}
+      logoutAction={logout}
+      today={today}
+    >
+      {children}
+    </AdminShell>
   );
 }
 

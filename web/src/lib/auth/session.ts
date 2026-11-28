@@ -9,6 +9,8 @@ export interface AdminUser {
   id: string;
   email: string;
   displayName: string | null;
+  /** ISO time of this account's last sign-in, from Supabase Auth. */
+  lastSignInAt: string | null;
 }
 
 /**
@@ -35,7 +37,7 @@ export const getAdmin = cache(async (): Promise<AdminUser | null> => {
     .maybeSingle();
 
   if (!profile || profile.role !== "admin") return null;
-  return { id: profile.id, email: profile.email, displayName: profile.display_name };
+  return { id: profile.id, email: profile.email, displayName: profile.display_name, lastSignInAt: data.user.last_sign_in_at ?? null };
 });
 
 /** Use at the top of every admin page, layout and server action. */
