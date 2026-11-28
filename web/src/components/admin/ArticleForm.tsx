@@ -20,7 +20,7 @@ export interface ArticleFormValues {
   authorName: string; imageAlt: string; seoTitle: string; seoDescription: string;
   /** "YYYY-MM-DDTHH:mm" (Ghana time = UTC) or "" */
   featuredImageId: string;
-  publishedAt: string; isFeatured: boolean; isTrending: boolean; status: "draft" | "published";
+  publishedAt: string; isBreaking?: boolean; /** ISO expiry while the story is currently breaking, else "" */ breakingUntil?: string; isFeatured: boolean; isTrending: boolean; status: "draft" | "published";
 }
 
 const init: ActionState = {};
@@ -38,6 +38,8 @@ export function ArticleForm({ values, categories, media, flash, aiEnabled = fals
   const [seoTitle, setSeoTitle] = useState(values.seoTitle);
   const [seoDescription, setSeoDescription] = useState(values.seoDescription);
   const published = values.status === "published";
+  const breakingActive = Boolean(values.isBreaking && values.breakingUntil && new Date(values.breakingUntil) > new Date());
+  const [breaking, setBreaking] = useState(Boolean(values.isBreaking));
 
   /** Fills the form from an AI draft. Never saves or publishes; slug follows the headline only if untouched. */
   const applyDraft = (d: ArticleDraft) => {
@@ -92,6 +94,19 @@ export function ArticleForm({ values, categories, media, flash, aiEnabled = fals
             </Field>
             <div className="space-y-2 text-sm">
               <label className="flex items-center gap-2"><input type="checkbox" name="is_featured" defaultChecked={values.isFeatured} /> Feature on the homepage</label>
+              <div className="border border-rule p-2">
+                <label className="flex items-center gap-2 font-semibold"><input type="checkbox" name="is_breaking" checked={breaking} onChange={(e) => setBreaking(e.target.checked)} /> Breaking news banner</label>
+                <p className="mt-1 text-xs text-muted">Shows this story in a bar at the top of every page. It applies when you press Publish, and clears itself after the time you choose.</p>
+                {breaking && (
+                  <div className="mt-2">
+                    <label htmlFor="breaking_hours" className="block text-xs font-semibold">Show for</label>
+                    <select id="breaking_hours" name="breaking_hours" defaultValue={breakingActive ? "keep" : "3"} className={inputClass}>
+                      {breakingActive && <option value="keep">Keep current end time ({new Intl.DateTimeFormat("en-GB", { timeStyle: "short", dateStyle: "medium", timeZone: "Africa/Accra" }).format(new Date(values.breakingUntil!))})</option>}
+                      {[1, 3, 6, 12, 24].map((h) => <option key={h} value={h}>{h} hour{h > 1 ? "s" : ""}{breakingActive ? " from now" : ""}</option>)}
+                    </select>
+                  </div>
+                )}
+              </div>
               <label className="flex items-center gap-2"><input type="checkbox" name="is_trending" defaultChecked={values.isTrending} /> Show in “Trending”</label>
             </div>
             <details className="text-sm">

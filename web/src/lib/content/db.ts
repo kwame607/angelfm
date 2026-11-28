@@ -1,6 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
+import type { BreakingItem } from "@/lib/breaking";
 import type {
   AdPlacement, Advertisement, Article, Category, Presenter, Programme, SiteInfo, Weekday,
 } from "./types";
@@ -93,6 +94,15 @@ export async function getTrendingArticles(limit = 5): Promise<Article[]> {
   const { data } = await db().from("news_articles").select(ARTICLE_SELECT).eq("is_trending", true)
     .order("published_at", { ascending: false }).limit(limit);
   return ((data ?? []) as unknown as ArticleRow[]).map(toArticle);
+}
+
+/** Published stories currently flagged breaking. The banner re-checks expiry in the browser, so the cache can be a few minutes stale. */
+export async function getBreakingNews(): Promise<BreakingItem[]> {
+  "use cache";
+  const { data } = await db().from("news_articles").select("slug,title,breaking_until")
+    .eq("is_breaking", true).gt("breaking_until", new Date().toISOString())
+    .order("published_at", { ascending: false }).limit(3);
+  return (data ?? []).map((r) => ({ slug: r.slug as string, title: r.title as string, until: r.breaking_until as string }));
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {

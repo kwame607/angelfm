@@ -84,3 +84,8 @@ export async function getAdsForPlacement(placement: AdPlacement): Promise<Advert
 export async function getSiteInfo(): Promise<SiteInfo> {
   return siteInfo;
 }
+
+/** Placeholder content never claims breaking news. */
+export async function getBreakingNews(): Promise<never[]> {
+  return [];
+}

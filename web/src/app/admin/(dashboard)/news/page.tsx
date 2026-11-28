@@ -23,7 +23,7 @@ export default async function NewsAdminPage({ searchParams }: Props) {
   const supabase = await createClient();
   let q = supabase
     .from("news_articles")
-    .select("id,title,status,published_at,updated_at,categories(name)")
+    .select("id,title,status,published_at,updated_at,is_breaking,breaking_until,categories(name)")
     .order("updated_at", { ascending: false })
     .limit(100);
   if (filter !== "all") q = q.eq("status", filter);
@@ -67,6 +67,7 @@ export default async function NewsAdminPage({ searchParams }: Props) {
                       <StatusBadge tone={scheduled ? "warning" : a.status === "published" ? "live" : "neutral"}>
                         {scheduled ? "Scheduled" : a.status === "published" ? "Published" : "Draft"}
                       </StatusBadge>
+                      {a.is_breaking && a.breaking_until && new Date(a.breaking_until) > new Date() && <span className="ml-2"><StatusBadge tone="warning">Breaking</StatusBadge></span>}
                     </td>
                     <td className="px-4 py-3 text-muted">{a.published_at ? formatDate(a.published_at) : "—"}</td>
                   </tr>
