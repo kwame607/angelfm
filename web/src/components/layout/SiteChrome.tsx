@@ -1,5 +1,7 @@
 import { SampleNotice } from "@/components/ui/SampleNotice";
 import { RadioProvider } from "@/components/radio/RadioPlayer";
+import { getBreakingNews } from "@/lib/content";
+import { BreakingBanner } from "./BreakingBanner";
 import { getPublicRadioConfig } from "@/lib/radio/config";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
@@ -9,7 +11,7 @@ import { SiteFooter } from "./SiteFooter";
  * persists while visitors navigate between public pages.
  */
 export async function SiteChrome({ children }: { children: React.ReactNode }) {
-  const radio = await getPublicRadioConfig();
+  const [radio, breaking] = await Promise.all([getPublicRadioConfig(), getBreakingNews()]);
   return (
     <RadioProvider
       config={{
@@ -21,6 +23,7 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
     >
       <div className="site-theme flex min-h-screen flex-1 flex-col bg-paper text-body">
         <SampleNotice />
+        <BreakingBanner items={breaking} />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

@@ -28,4 +28,5 @@ export const getPresenterBySlug = (...a: Parameters<typeof sample.getPresenterBy
 export const getProgrammesForPresenter = (...a: Parameters<typeof sample.getProgrammesForPresenter>) => impl().getProgrammesForPresenter(...a);
 export const getPresentersForProgramme = (...a: Parameters<typeof sample.getPresentersForProgramme>) => impl().getPresentersForProgramme(...a);
 export const getAdsForPlacement = (...a: Parameters<typeof sample.getAdsForPlacement>) => impl().getAdsForPlacement(...a);
+export const getBreakingNews = () => impl().getBreakingNews();
 export const getSiteInfo = () => impl().getSiteInfo();

@@ -38,7 +38,7 @@ export default async function EditArticlePage({ params, searchParams }: Props) {
           id: a.id, title: a.title, slug: a.slug, excerpt: a.excerpt, bodyHtml: a.body_html, categoryId: a.category_id ?? "", featuredImageId: a.featured_image_id ?? "",
           authorName: a.author_name ?? "", imageAlt: a.image_alt, seoTitle: a.seo_title ?? "", seoDescription: a.seo_description ?? "",
           publishedAt: toDateTimeInput(a.published_at),
-          isFeatured: a.is_featured, isTrending: a.is_trending, status: a.status,
+          isBreaking: a.is_breaking, breakingUntil: a.breaking_until ?? "", isFeatured: a.is_featured, isTrending: a.is_trending, status: a.status,
         }}
       />
     </>

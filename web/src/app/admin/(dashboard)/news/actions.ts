@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { logAudit } from "@/lib/audit";
 import { slugify, SLUG_PATTERN } from "@/lib/slug";
 import { htmlToText, sanitizeArticleHtml } from "@/lib/sanitize";
+import { BREAKING_HOURS, breakingUntil } from "@/lib/breaking";
 import { friendlyDbError, parseGhanaDateTime, str, type ActionState } from "@/lib/admin-form";
 
 const optionalText = (max: number, msg: string) =>
@@ -73,6 +74,25 @@ export async function saveArticle(_: ActionState, formData: FormData): Promise<A
 
   const excerpt = v.excerpt || (bodyText.length > 160 ? `${bodyText.slice(0, 157).trimEnd()}…` : bodyText);
 
+  const supabase = await createClient();
+  let articleId: string;
+
+  // Breaking news: only meaningful for a published story, and always time-limited.
+  let isBreaking = false;
+  let breakingEnds: string | null = null;
+  if (publishing && formData.get("is_breaking") === "on") {
+    const choice = str(formData.get("breaking_hours"));
+    let keep: string | null = null;
+    if (choice === "keep" && id) {
+      const { data: cur } = await supabase.from("news_articles").select("is_breaking,breaking_until").eq("id", id.data).maybeSingle();
+      if (cur?.is_breaking && cur.breaking_until && new Date(cur.breaking_until) > new Date()) keep = cur.breaking_until;
+    }
+    const hours = Number(choice);
+    if (!keep && !(BREAKING_HOURS as readonly number[]).includes(hours)) return { error: "Choose how long the story should show as breaking news." };
+    isBreaking = true;
+    breakingEnds = keep ?? breakingUntil(new Date(publishedAt!), new Date(), hours).toISOString();
+  }
+
   const row = {
     slug,
     title: v.title,
@@ -86,12 +106,11 @@ export async function saveArticle(_: ActionState, formData: FormData): Promise<A
     published_at: publishedAt,
     is_featured: formData.get("is_featured") === "on",
     is_trending: formData.get("is_trending") === "on",
+    is_breaking: isBreaking,
+    breaking_until: breakingEnds,
     seo_title: v.seoTitle,
     seo_description: v.seoDescription,
   };
-
-  const supabase = await createClient();
-  let articleId: string;
 
   if (id) {
     const { data, error } = await supabase.from("news_articles").update(row).eq("id", id.data).select("id").maybeSingle();
@@ -107,7 +126,8 @@ export async function saveArticle(_: ActionState, formData: FormData): Promise<A
   await logAudit(admin, {
     action: publishing ? "article.publish" : "article.save_draft",
     entityType: "article", entityId: articleId,
-    summary: `${publishing ? "Published" : "Saved draft of"} “${v.title}”`,
+    summary: `${publishing ? "Published" : "Saved draft of"} “${v.title}”${isBreaking ? " (breaking news)" : ""}`,
+    metadata: isBreaking ? { breaking_until: breakingEnds } : {},
   });
   updateTag("content");
   revalidatePath("/admin/news");

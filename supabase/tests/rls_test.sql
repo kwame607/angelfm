@@ -116,6 +116,15 @@ select t.fails($$insert into public.programmes (slug, title, days, start_time, e
 select t.fails($$insert into public.programmes (slug, title, days, start_time, end_time) values ('same-time','T',array['mon'],'06:00','06:00')$$, 'zero-length programme rejected');
 select t.fails($$update public.radio_settings set stream_url = 'ftp://nope.test/s'$$, 'non-http stream URL rejected');
 select t.fails($$insert into public.site_settings (id) values (2)$$, 'second site_settings row rejected (singleton)');
+select t.fails($$insert into public.news_articles (slug, title, status, published_at, is_breaking) values ('brk-no-expiry','T','published', now(), true)$$, 'breaking article requires an expiry time');
+reset role;
+
+-- breaking flag: accepted with an expiry, defaults to off, and drafts stay hidden from the public
+insert into public.news_articles (slug, title, status, published_at, is_breaking, breaking_until)
+  values ('brk-ok','Breaking story','published', now() - interval '1 minute', true, now() + interval '2 hours');
+select t.ok((select bool_and(not is_breaking) from public.news_articles where slug <> 'brk-ok'), 'is_breaking defaults to false');
+set role anon;
+select t.ok((select count(*) from public.news_articles where is_breaking and breaking_until > now()) = 1, 'anon can read the active breaking story');
 reset role;
 
 -- updated_at trigger actually fires (superuser, later transaction than the insert)

@@ -29,6 +29,16 @@ The timetable on the **Programmes** page is built from the programmes you add un
 - If two active shows overlap, a yellow warning appears at the top of the admin Programmes list. Fix the times so the timetable is clear.
 - "Scheduled now" and "Up next" on the website follow the timetable and Ghana time. They do not mean the station is broadcasting live; only the Listen player shows that.
 
+## Breaking news banner
+
+A yellow bar at the very top of every public page, linking to the story.
+
+1. Open or create the article, tick **Breaking news banner**, and choose how long it should show (1, 3, 6, 12 or 24 hours).
+2. Press **Publish**. (Drafts never show a banner; the setting applies when you publish.)
+3. The banner clears itself when the time is up. Open the article and untick the box to remove it sooner.
+
+Editing a breaking story later offers **Keep current end time** or a fresh time counted from now. Up to three breaking stories show at once, newest first. Visitors can close the bar for the rest of their visit. The News list in the admin marks breaking stories with a **Breaking** badge. Use it only for genuinely urgent news so visitors keep paying attention to it.
+
 ## Write with AI (news editor)
 
 On **News → New article** (and when editing), open **Write with AI**, paste your rough notes, a statement or a press release, and press **Write draft**.
