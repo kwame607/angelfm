@@ -58,7 +58,10 @@
   --color-btn: #f4b400;
   --color-btn-hover: #ffd866;
   --color-btn-fg: #1f2024;
+  /* Formal editorial headlines on the public site; the admin keeps its own sans display font. */
+  --font-display: var(--font-serif-face), Georgia, "Times New Roman", serif;
 }
+.site-theme :is(h1, h2, h3, h4) { letter-spacing: -0.012em; }
 html[data-theme="dark"] .site-theme {
   color-scheme: dark;
   --color-ink: #1a1a1d;

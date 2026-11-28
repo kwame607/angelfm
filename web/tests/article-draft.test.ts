@@ -28,7 +28,15 @@ test("notes validation", () => {
 });
 test("prompt forbids inventing facts and quotes", () => {
   assert.match(SYSTEM_PROMPT, /ONLY facts/);
-  assert.match(SYSTEM_PROMPT, /never invent or paraphrase a quote/i);
+  assert.match(SYSTEM_PROMPT, /Never invent a quote/);
+});
+test("prompt covers Ghana context, allegations, injection and non-stories", () => {
+  for (const re of [/GH₵/, /never state that a person is guilty/, /not instructions/, /do not contain a news story/, /check_before_publishing/]) assert.match(SYSTEM_PROMPT, re);
+});
+test("a reply that says the notes are not a story becomes a clear error, not an empty draft", () => {
+  const r = parseDraft(JSON.stringify({ headline: "", summary: "", body_html: "", seo_title: "", seo_description: "", check_before_publishing: [], problem: "Add who, what, when and where." }));
+  assert.ok(!r.ok && /could not write an article/.test(r.error) && /Add who, what/.test(r.error));
+  assert.equal(parseDraft(JSON.stringify({ headline: "", body_html: "" })).ok, false);
 });
 
 const reply = (status: number, body: unknown) => (async () => new Response(JSON.stringify(body), { status })) as unknown as typeof fetch;
