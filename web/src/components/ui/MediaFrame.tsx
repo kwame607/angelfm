@@ -30,7 +30,7 @@ export function MediaFrame({
       {src ? (
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${zoom ? "transition-transform duration-700 group-hover:scale-105" : ""}`} />
       ) : (
-        <div className="absolute inset-0 flex items-end justify-center bg-[radial-gradient(120%_90%_at_50%_120%,rgba(214,40,40,0.55),transparent_60%),linear-gradient(160deg,#1b1c22,#0b0b0e)]" aria-hidden>
+        <div className="absolute inset-0 flex items-end justify-center bg-[radial-gradient(120%_90%_at_50%_120%,rgba(244,180,0,0.35),transparent_60%),linear-gradient(160deg,#3a3b40,#222327)]" aria-hidden>
           {!plain && <svg viewBox="0 0 120 40" className="mb-[18%] h-[28%] w-[44%] text-angel-gold/70" fill="currentColor">
             {[8, 18, 30, 22, 36, 14, 26, 34, 20, 10].map((h, i) => (
               <rect key={i} x={i * 12 + 2} y={40 - h} width="7" height={h} rx="3.5" />
